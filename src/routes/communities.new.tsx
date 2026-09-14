@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { UserShell } from "@/components/UserShell";
 import { Panel, SectionTitle } from "@/components/status";
+import { supabase } from "@/integrations/supabase/client";
 import { CATEGORIES } from "@/lib/data";
 
 export const Route = createFileRoute("/communities/new")({
