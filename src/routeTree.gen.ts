@@ -19,6 +19,8 @@ import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as StatesRouteImport } from './routes/states'
+import { Route as AuthIndexRouteImport } from './routes/auth.index'
+import { Route as AuthRoleRouteImport } from './routes/auth.role'
 import { Route as CommunitiesIndexRouteImport } from './routes/communities.index'
 import { Route as CommunitiesCommunityIdRouteImport } from './routes/communities.$communityId'
 import { Route as CommunitiesNewRouteImport } from './routes/communities.new'
@@ -83,6 +85,16 @@ const SavedRoute = SavedRouteImport.update({
 const StatesRoute = StatesRouteImport.update({
   id: '/states',
   path: '/states',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthIndexRoute = AuthIndexRouteImport.update({
+  id: '/auth/',
+  path: '/auth/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoleRoute = AuthRoleRouteImport.update({
+  id: '/auth/role',
+  path: '/auth/role',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CommunitiesIndexRoute = CommunitiesIndexRouteImport.update({
@@ -172,6 +184,7 @@ export interface FileRoutesByFullPath {
   '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
+  '/auth/role': typeof AuthRoleRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/communities/new': typeof CommunitiesNewRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
@@ -183,6 +196,7 @@ export interface FileRoutesByFullPath {
   '/poster/organization': typeof PosterOrganizationRoute
   '/signup/poster': typeof SignupPosterRoute
   '/signup/student': typeof SignupStudentRoute
+  '/auth/': typeof AuthIndexRoute
   '/communities/': typeof CommunitiesIndexRoute
   '/opportunities/': typeof OpportunitiesIndexRoute
   '/poster/': typeof PosterIndexRoute
@@ -199,6 +213,7 @@ export interface FileRoutesByTo {
   '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
+  '/auth/role': typeof AuthRoleRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/communities/new': typeof CommunitiesNewRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
@@ -210,6 +225,7 @@ export interface FileRoutesByTo {
   '/poster/organization': typeof PosterOrganizationRoute
   '/signup/poster': typeof SignupPosterRoute
   '/signup/student': typeof SignupStudentRoute
+  '/auth': typeof AuthIndexRoute
   '/communities': typeof CommunitiesIndexRoute
   '/opportunities': typeof OpportunitiesIndexRoute
   '/poster': typeof PosterIndexRoute
@@ -227,6 +243,7 @@ export interface FileRoutesById {
   '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
+  '/auth/role': typeof AuthRoleRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/communities/new': typeof CommunitiesNewRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
@@ -238,6 +255,7 @@ export interface FileRoutesById {
   '/poster/organization': typeof PosterOrganizationRoute
   '/signup/poster': typeof SignupPosterRoute
   '/signup/student': typeof SignupStudentRoute
+  '/auth/': typeof AuthIndexRoute
   '/communities/': typeof CommunitiesIndexRoute
   '/opportunities/': typeof OpportunitiesIndexRoute
   '/poster/': typeof PosterIndexRoute
@@ -256,6 +274,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/saved'
     | '/states'
+    | '/auth/role'
     | '/communities/$communityId'
     | '/communities/new'
     | '/opportunities/$oppId'
@@ -267,6 +286,7 @@ export interface FileRouteTypes {
     | '/poster/organization'
     | '/signup/poster'
     | '/signup/student'
+    | '/auth/'
     | '/communities/'
     | '/opportunities/'
     | '/poster/'
@@ -283,6 +303,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/saved'
     | '/states'
+    | '/auth/role'
     | '/communities/$communityId'
     | '/communities/new'
     | '/opportunities/$oppId'
@@ -294,6 +315,7 @@ export interface FileRouteTypes {
     | '/poster/organization'
     | '/signup/poster'
     | '/signup/student'
+    | '/auth'
     | '/communities'
     | '/opportunities'
     | '/poster'
@@ -310,6 +332,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/saved'
     | '/states'
+    | '/auth/role'
     | '/communities/$communityId'
     | '/communities/new'
     | '/opportunities/$oppId'
@@ -321,6 +344,7 @@ export interface FileRouteTypes {
     | '/poster/organization'
     | '/signup/poster'
     | '/signup/student'
+    | '/auth/'
     | '/communities/'
     | '/opportunities/'
     | '/poster/'
@@ -338,6 +362,7 @@ export interface RootRouteChildren {
   ProfileRoute: typeof ProfileRoute
   SavedRoute: typeof SavedRoute
   StatesRoute: typeof StatesRoute
+  AuthRoleRoute: typeof AuthRoleRoute
   CommunitiesCommunityIdRoute: typeof CommunitiesCommunityIdRoute
   CommunitiesNewRoute: typeof CommunitiesNewRoute
   OpportunitiesOppIdRoute: typeof OpportunitiesOppIdRoute
@@ -349,6 +374,7 @@ export interface RootRouteChildren {
   PosterOrganizationRoute: typeof PosterOrganizationRoute
   SignupPosterRoute: typeof SignupPosterRoute
   SignupStudentRoute: typeof SignupStudentRoute
+  AuthIndexRoute: typeof AuthIndexRoute
   CommunitiesIndexRoute: typeof CommunitiesIndexRoute
   OpportunitiesIndexRoute: typeof OpportunitiesIndexRoute
   PosterIndexRoute: typeof PosterIndexRoute
@@ -425,6 +451,20 @@ declare module '@tanstack/react-router' {
       path: '/states'
       fullPath: '/states'
       preLoaderRoute: typeof StatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/': {
+      id: '/auth/'
+      path: '/auth'
+      fullPath: '/auth/'
+      preLoaderRoute: typeof AuthIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/role': {
+      id: '/auth/role'
+      path: '/auth/role'
+      fullPath: '/auth/role'
+      preLoaderRoute: typeof AuthRoleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/communities/': {
@@ -546,6 +586,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileRoute: ProfileRoute,
   SavedRoute: SavedRoute,
   StatesRoute: StatesRoute,
+  AuthRoleRoute: AuthRoleRoute,
   CommunitiesCommunityIdRoute: CommunitiesCommunityIdRoute,
   CommunitiesNewRoute: CommunitiesNewRoute,
   OpportunitiesOppIdRoute: OpportunitiesOppIdRoute,
@@ -557,6 +598,7 @@ const rootRouteChildren: RootRouteChildren = {
   PosterOrganizationRoute: PosterOrganizationRoute,
   SignupPosterRoute: SignupPosterRoute,
   SignupStudentRoute: SignupStudentRoute,
+  AuthIndexRoute: AuthIndexRoute,
   CommunitiesIndexRoute: CommunitiesIndexRoute,
   OpportunitiesIndexRoute: OpportunitiesIndexRoute,
   PosterIndexRoute: PosterIndexRoute,
