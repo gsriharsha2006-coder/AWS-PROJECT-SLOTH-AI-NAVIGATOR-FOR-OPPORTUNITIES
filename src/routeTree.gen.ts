@@ -17,13 +17,17 @@ import { Route as MembershipRouteImport } from './routes/membership'
 import { Route as NavigatorRouteImport } from './routes/navigator'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as StatesRouteImport } from './routes/states'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
+import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
+import { Route as AuthForgotRouteImport } from './routes/auth.forgot'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as AuthPosterLoginRouteImport } from './routes/auth.poster-login'
 import { Route as AuthRoleRouteImport } from './routes/auth.role'
 import { Route as AuthSignupRouteImport } from './routes/auth.signup'
+import { Route as AuthVerifyRouteImport } from './routes/auth.verify'
 import { Route as CommunitiesIndexRouteImport } from './routes/communities.index'
 import { Route as CommunitiesCommunityIdRouteImport } from './routes/communities.$communityId'
 import { Route as CommunitiesNewRouteImport } from './routes/communities.new'
@@ -80,6 +84,11 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SavedRoute = SavedRouteImport.update({
   id: '/saved',
   path: '/saved',
@@ -93,6 +102,16 @@ const StatesRoute = StatesRouteImport.update({
 const AuthIndexRoute = AuthIndexRouteImport.update({
   id: '/auth/',
   path: '/auth/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/auth/callback',
+  path: '/auth/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthForgotRoute = AuthForgotRouteImport.update({
+  id: '/auth/forgot',
+  path: '/auth/forgot',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthLoginRoute = AuthLoginRouteImport.update({
@@ -113,6 +132,11 @@ const AuthRoleRoute = AuthRoleRouteImport.update({
 const AuthSignupRoute = AuthSignupRouteImport.update({
   id: '/auth/signup',
   path: '/auth/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthVerifyRoute = AuthVerifyRouteImport.update({
+  id: '/auth/verify',
+  path: '/auth/verify',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CommunitiesIndexRoute = CommunitiesIndexRouteImport.update({
@@ -200,12 +224,16 @@ export interface FileRoutesByFullPath {
   '/navigator': typeof NavigatorRoute
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/poster-login': typeof AuthPosterLoginRoute
   '/auth/role': typeof AuthRoleRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/auth/verify': typeof AuthVerifyRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/communities/new': typeof CommunitiesNewRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
@@ -232,12 +260,16 @@ export interface FileRoutesByTo {
   '/navigator': typeof NavigatorRoute
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/poster-login': typeof AuthPosterLoginRoute
   '/auth/role': typeof AuthRoleRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/auth/verify': typeof AuthVerifyRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/communities/new': typeof CommunitiesNewRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
@@ -265,12 +297,16 @@ export interface FileRoutesById {
   '/navigator': typeof NavigatorRoute
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/poster-login': typeof AuthPosterLoginRoute
   '/auth/role': typeof AuthRoleRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/auth/verify': typeof AuthVerifyRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/communities/new': typeof CommunitiesNewRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
@@ -299,12 +335,16 @@ export interface FileRouteTypes {
     | '/navigator'
     | '/notifications'
     | '/profile'
+    | '/reset-password'
     | '/saved'
     | '/states'
+    | '/auth/callback'
+    | '/auth/forgot'
     | '/auth/login'
     | '/auth/poster-login'
     | '/auth/role'
     | '/auth/signup'
+    | '/auth/verify'
     | '/communities/$communityId'
     | '/communities/new'
     | '/opportunities/$oppId'
@@ -331,12 +371,16 @@ export interface FileRouteTypes {
     | '/navigator'
     | '/notifications'
     | '/profile'
+    | '/reset-password'
     | '/saved'
     | '/states'
+    | '/auth/callback'
+    | '/auth/forgot'
     | '/auth/login'
     | '/auth/poster-login'
     | '/auth/role'
     | '/auth/signup'
+    | '/auth/verify'
     | '/communities/$communityId'
     | '/communities/new'
     | '/opportunities/$oppId'
@@ -363,12 +407,16 @@ export interface FileRouteTypes {
     | '/navigator'
     | '/notifications'
     | '/profile'
+    | '/reset-password'
     | '/saved'
     | '/states'
+    | '/auth/callback'
+    | '/auth/forgot'
     | '/auth/login'
     | '/auth/poster-login'
     | '/auth/role'
     | '/auth/signup'
+    | '/auth/verify'
     | '/communities/$communityId'
     | '/communities/new'
     | '/opportunities/$oppId'
@@ -396,12 +444,16 @@ export interface RootRouteChildren {
   NavigatorRoute: typeof NavigatorRoute
   NotificationsRoute: typeof NotificationsRoute
   ProfileRoute: typeof ProfileRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SavedRoute: typeof SavedRoute
   StatesRoute: typeof StatesRoute
+  AuthCallbackRoute: typeof AuthCallbackRoute
+  AuthForgotRoute: typeof AuthForgotRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthPosterLoginRoute: typeof AuthPosterLoginRoute
   AuthRoleRoute: typeof AuthRoleRoute
   AuthSignupRoute: typeof AuthSignupRoute
+  AuthVerifyRoute: typeof AuthVerifyRoute
   CommunitiesCommunityIdRoute: typeof CommunitiesCommunityIdRoute
   CommunitiesNewRoute: typeof CommunitiesNewRoute
   OpportunitiesOppIdRoute: typeof OpportunitiesOppIdRoute
@@ -478,6 +530,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/saved': {
       id: '/saved'
       path: '/saved'
@@ -497,6 +556,20 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth/'
       preLoaderRoute: typeof AuthIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/callback': {
+      id: '/auth/callback'
+      path: '/auth/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/forgot': {
+      id: '/auth/forgot'
+      path: '/auth/forgot'
+      fullPath: '/auth/forgot'
+      preLoaderRoute: typeof AuthForgotRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/login': {
@@ -525,6 +598,13 @@ declare module '@tanstack/react-router' {
       path: '/auth/signup'
       fullPath: '/auth/signup'
       preLoaderRoute: typeof AuthSignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/verify': {
+      id: '/auth/verify'
+      path: '/auth/verify'
+      fullPath: '/auth/verify'
+      preLoaderRoute: typeof AuthVerifyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/communities/': {
@@ -644,12 +724,16 @@ const rootRouteChildren: RootRouteChildren = {
   NavigatorRoute: NavigatorRoute,
   NotificationsRoute: NotificationsRoute,
   ProfileRoute: ProfileRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SavedRoute: SavedRoute,
   StatesRoute: StatesRoute,
+  AuthCallbackRoute: AuthCallbackRoute,
+  AuthForgotRoute: AuthForgotRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthPosterLoginRoute: AuthPosterLoginRoute,
   AuthRoleRoute: AuthRoleRoute,
   AuthSignupRoute: AuthSignupRoute,
+  AuthVerifyRoute: AuthVerifyRoute,
   CommunitiesCommunityIdRoute: CommunitiesCommunityIdRoute,
   CommunitiesNewRoute: CommunitiesNewRoute,
   OpportunitiesOppIdRoute: OpportunitiesOppIdRoute,
