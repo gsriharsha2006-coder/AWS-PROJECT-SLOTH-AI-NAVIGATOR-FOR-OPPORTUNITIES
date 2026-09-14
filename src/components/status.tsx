@@ -91,13 +91,17 @@ export function StatusChip({ label, token = "calm" }: { label: string; token?: k
 export function SectionTitle({
   children,
   action,
+  id,
 }: {
   children: React.ReactNode;
   action?: React.ReactNode;
+  id?: string;
 }) {
   return (
     <div className="mb-4 flex items-end justify-between gap-4">
-      <h2 className="text-lg font-semibold">{children}</h2>
+      <h2 id={id} className="text-lg font-semibold">
+        {children}
+      </h2>
       {action}
     </div>
   );

@@ -36,35 +36,36 @@ const prompts = [
 const answers: Record<string, { summary: string; ids: string[]; next: string }> = {
   "What should I apply to next?": {
     summary:
-      "Your abstract for the AI Innovation Challenge closes tomorrow and it is your strongest match at 92%. The research fellowship is next, three days out, and it needs a faculty reference.",
-    ids: ["ai-innovation-challenge", "ug-research-fellowship"],
-    next: "Finish the AI Innovation Challenge abstract today.",
+      "Your Smart India Hackathon idea submission closes tomorrow and it is your strongest match at 92%. The IISc Summer Research Fellowship is next, three days out, and it needs a faculty reference.",
+    ids: ["smart-india-hackathon", "iisc-summer-research"],
+    next: "Finish the Smart India Hackathon idea submission today.",
   },
   "What closes this week?": {
     summary: "Three listings close within seven days. One is already started, two are untouched.",
-    ids: ["ai-innovation-challenge", "ug-research-fellowship", "startup-internship-ece"],
+    ids: ["smart-india-hackathon", "iisc-summer-research", "iitb-research-internship"],
     next: "Set reminders on the two you have not started.",
   },
   "What am I eligible for?": {
     summary:
-      "Four listings read as likely eligible from your profile. Two more need a check: an AICTE college code and an Andhra Pradesh domicile clause.",
-    ids: ["ug-research-fellowship", "merit-scholarship-ug", "startup-internship-ece"],
-    next: "Confirm your AICTE college code to unlock the national hackathon.",
+      "Four listings read as likely eligible from your profile. Two more need a check: your institute's SIH registration and whether your degree is covered by INSPIRE SHE.",
+    ids: ["iisc-summer-research", "reliance-foundation-scholarship", "iitb-research-internship"],
+    next: "Confirm your institute's SIH registration to lock the hackathon entry.",
   },
   "Show AI hackathons": {
-    summary: "One open AI-focused challenge matches your discipline and skills right now.",
-    ids: ["ai-innovation-challenge"],
+    summary: "Two open hackathons match your discipline and project history right now.",
+    ids: ["smart-india-hackathon", "adobe-india-hackathon"],
     next: "Form a team through the AI Builders community.",
   },
   "Scholarships I qualify for": {
-    summary: "One scholarship window opens on 12 October and your income band and year both match.",
-    ids: ["merit-scholarship-ug"],
-    next: "Prepare marksheets and the income certificate before the window opens.",
+    summary:
+      "The Reliance Foundation window opens on 12 October, and INSPIRE SHE is open but needs an eligibility check.",
+    ids: ["reliance-foundation-scholarship", "inspire-she-scholarship"],
+    next: "Prepare marksheets and income proof before the window opens.",
   },
   "Opportunities for ECE students": {
     summary: "Three listings are discipline-specific for electronics and communication.",
-    ids: ["ug-research-fellowship", "startup-internship-ece", "design-challenge-ece"],
-    next: "The internship deadline is nearest — six days.",
+    ids: ["iisc-summer-research", "iitb-research-internship", "isro-respond-project"],
+    next: "The IIT Bombay internship deadline is nearest — six days.",
   },
 };
 
@@ -73,7 +74,7 @@ function Navigator() {
   const [active, setActive] = useState("What should I apply to next?");
   const [loading, setLoading] = useState(false);
 
-  const result = answers[active];
+  const result = answers[active]!;
   const cards = result ? opportunities.filter((o) => result.ids.includes(o.id)) : [];
 
   function run(q: string) {

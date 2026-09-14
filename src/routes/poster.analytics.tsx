@@ -76,7 +76,7 @@ function PosterAnalytics() {
                 <div className="mt-1.5 h-2.5 overflow-hidden rounded-full bg-muted">
                   <div
                     className="h-full rounded-full bg-primary"
-                    style={{ width: `${(f.value / funnel[0].value) * 100}%` }}
+                    style={{ width: `${(f.value / funnel[0]!.value) * 100}%` }}
                   />
                 </div>
               </li>

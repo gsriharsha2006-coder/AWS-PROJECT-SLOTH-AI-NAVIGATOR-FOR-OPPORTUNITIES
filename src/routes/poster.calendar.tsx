@@ -24,10 +24,10 @@ export const Route = createFileRoute("/poster/calendar")({
 });
 
 function PosterCalendar() {
-  const [selected, setSelected] = useState(publishingDensity[0].date);
+  const [selected, setSelected] = useState(publishingDensity[0]!.date);
   const day = publishingDensity.find((d) => d.date === selected)!;
   const level = densityLevel(day.listings);
-  const alternative = [...publishingDensity].sort((a, b) => a.listings - b.listings)[0];
+  const alternative = [...publishingDensity].sort((a, b) => a.listings - b.listings)[0]!;
 
   return (
     <PosterShell

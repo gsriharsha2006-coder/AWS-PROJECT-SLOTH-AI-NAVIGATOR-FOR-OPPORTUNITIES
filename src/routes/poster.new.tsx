@@ -88,7 +88,7 @@ const checks = [
 
 function PostOpportunity() {
   const [step, setStep] = useState(0);
-  const best = [...publishingDensity].sort((a, b) => a.listings - b.listings)[0];
+  const best = [...publishingDensity].sort((a, b) => a.listings - b.listings)[0]!;
   const congested = publishingDensity.find((d) => d.date === "18 Sep")!;
 
   return (
@@ -133,7 +133,7 @@ function PostOpportunity() {
 
             {step < 6 ? (
               <div className="grid gap-4 sm:grid-cols-2">
-                {fields[step].map((f) => (
+                {fields[step]!.map((f) => (
                   <label key={f.label} className={f.wide ? "sm:col-span-2" : ""}>
                     <span className="text-xs font-medium text-muted-foreground">{f.label}</span>
                     <input

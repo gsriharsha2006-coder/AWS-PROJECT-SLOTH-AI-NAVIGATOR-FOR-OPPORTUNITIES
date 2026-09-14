@@ -13,12 +13,15 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApplicationsRouteImport } from './routes/applications'
 import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as HomeRouteImport } from './routes/home'
+import { Route as MembershipRouteImport } from './routes/membership'
 import { Route as NavigatorRouteImport } from './routes/navigator'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as SavedRouteImport } from './routes/saved'
+import { Route as StatesRouteImport } from './routes/states'
 import { Route as CommunitiesIndexRouteImport } from './routes/communities.index'
 import { Route as CommunitiesCommunityIdRouteImport } from './routes/communities.$communityId'
+import { Route as CommunitiesNewRouteImport } from './routes/communities.new'
 import { Route as OpportunitiesIndexRouteImport } from './routes/opportunities.index'
 import { Route as OpportunitiesOppIdRouteImport } from './routes/opportunities.$oppId'
 import { Route as PosterIndexRouteImport } from './routes/poster.index'
@@ -28,6 +31,9 @@ import { Route as PosterCalendarRouteImport } from './routes/poster.calendar'
 import { Route as PosterNewRouteImport } from './routes/poster.new'
 import { Route as PosterOpportunitiesRouteImport } from './routes/poster.opportunities'
 import { Route as PosterOrganizationRouteImport } from './routes/poster.organization'
+import { Route as SignupIndexRouteImport } from './routes/signup.index'
+import { Route as SignupPosterRouteImport } from './routes/signup.poster'
+import { Route as SignupStudentRouteImport } from './routes/signup.student'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -47,6 +53,11 @@ const CalendarRoute = CalendarRouteImport.update({
 const HomeRoute = HomeRouteImport.update({
   id: '/home',
   path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MembershipRoute = MembershipRouteImport.update({
+  id: '/membership',
+  path: '/membership',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NavigatorRoute = NavigatorRouteImport.update({
@@ -69,6 +80,11 @@ const SavedRoute = SavedRouteImport.update({
   path: '/saved',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StatesRoute = StatesRouteImport.update({
+  id: '/states',
+  path: '/states',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CommunitiesIndexRoute = CommunitiesIndexRouteImport.update({
   id: '/communities/',
   path: '/communities/',
@@ -77,6 +93,11 @@ const CommunitiesIndexRoute = CommunitiesIndexRouteImport.update({
 const CommunitiesCommunityIdRoute = CommunitiesCommunityIdRouteImport.update({
   id: '/communities/$communityId',
   path: '/communities/$communityId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunitiesNewRoute = CommunitiesNewRouteImport.update({
+  id: '/communities/new',
+  path: '/communities/new',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OpportunitiesIndexRoute = OpportunitiesIndexRouteImport.update({
@@ -124,17 +145,35 @@ const PosterOrganizationRoute = PosterOrganizationRouteImport.update({
   path: '/poster/organization',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SignupIndexRoute = SignupIndexRouteImport.update({
+  id: '/signup/',
+  path: '/signup/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupPosterRoute = SignupPosterRouteImport.update({
+  id: '/signup/poster',
+  path: '/signup/poster',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupStudentRoute = SignupStudentRouteImport.update({
+  id: '/signup/student',
+  path: '/signup/student',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/applications': typeof ApplicationsRoute
   '/calendar': typeof CalendarRoute
   '/home': typeof HomeRoute
+  '/membership': typeof MembershipRoute
   '/navigator': typeof NavigatorRoute
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
+  '/states': typeof StatesRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
+  '/communities/new': typeof CommunitiesNewRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
   '/poster/analytics': typeof PosterAnalyticsRoute
   '/poster/applications': typeof PosterApplicationsRoute
@@ -142,20 +181,26 @@ export interface FileRoutesByFullPath {
   '/poster/new': typeof PosterNewRoute
   '/poster/opportunities': typeof PosterOpportunitiesRoute
   '/poster/organization': typeof PosterOrganizationRoute
+  '/signup/poster': typeof SignupPosterRoute
+  '/signup/student': typeof SignupStudentRoute
   '/communities/': typeof CommunitiesIndexRoute
   '/opportunities/': typeof OpportunitiesIndexRoute
   '/poster/': typeof PosterIndexRoute
+  '/signup/': typeof SignupIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/applications': typeof ApplicationsRoute
   '/calendar': typeof CalendarRoute
   '/home': typeof HomeRoute
+  '/membership': typeof MembershipRoute
   '/navigator': typeof NavigatorRoute
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
+  '/states': typeof StatesRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
+  '/communities/new': typeof CommunitiesNewRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
   '/poster/analytics': typeof PosterAnalyticsRoute
   '/poster/applications': typeof PosterApplicationsRoute
@@ -163,9 +208,12 @@ export interface FileRoutesByTo {
   '/poster/new': typeof PosterNewRoute
   '/poster/opportunities': typeof PosterOpportunitiesRoute
   '/poster/organization': typeof PosterOrganizationRoute
+  '/signup/poster': typeof SignupPosterRoute
+  '/signup/student': typeof SignupStudentRoute
   '/communities': typeof CommunitiesIndexRoute
   '/opportunities': typeof OpportunitiesIndexRoute
   '/poster': typeof PosterIndexRoute
+  '/signup': typeof SignupIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -173,11 +221,14 @@ export interface FileRoutesById {
   '/applications': typeof ApplicationsRoute
   '/calendar': typeof CalendarRoute
   '/home': typeof HomeRoute
+  '/membership': typeof MembershipRoute
   '/navigator': typeof NavigatorRoute
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
+  '/states': typeof StatesRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
+  '/communities/new': typeof CommunitiesNewRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
   '/poster/analytics': typeof PosterAnalyticsRoute
   '/poster/applications': typeof PosterApplicationsRoute
@@ -185,9 +236,12 @@ export interface FileRoutesById {
   '/poster/new': typeof PosterNewRoute
   '/poster/opportunities': typeof PosterOpportunitiesRoute
   '/poster/organization': typeof PosterOrganizationRoute
+  '/signup/poster': typeof SignupPosterRoute
+  '/signup/student': typeof SignupStudentRoute
   '/communities/': typeof CommunitiesIndexRoute
   '/opportunities/': typeof OpportunitiesIndexRoute
   '/poster/': typeof PosterIndexRoute
+  '/signup/': typeof SignupIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -196,11 +250,14 @@ export interface FileRouteTypes {
     | '/applications'
     | '/calendar'
     | '/home'
+    | '/membership'
     | '/navigator'
     | '/notifications'
     | '/profile'
     | '/saved'
+    | '/states'
     | '/communities/$communityId'
+    | '/communities/new'
     | '/opportunities/$oppId'
     | '/poster/analytics'
     | '/poster/applications'
@@ -208,20 +265,26 @@ export interface FileRouteTypes {
     | '/poster/new'
     | '/poster/opportunities'
     | '/poster/organization'
+    | '/signup/poster'
+    | '/signup/student'
     | '/communities/'
     | '/opportunities/'
     | '/poster/'
+    | '/signup/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/applications'
     | '/calendar'
     | '/home'
+    | '/membership'
     | '/navigator'
     | '/notifications'
     | '/profile'
     | '/saved'
+    | '/states'
     | '/communities/$communityId'
+    | '/communities/new'
     | '/opportunities/$oppId'
     | '/poster/analytics'
     | '/poster/applications'
@@ -229,20 +292,26 @@ export interface FileRouteTypes {
     | '/poster/new'
     | '/poster/opportunities'
     | '/poster/organization'
+    | '/signup/poster'
+    | '/signup/student'
     | '/communities'
     | '/opportunities'
     | '/poster'
+    | '/signup'
   id:
     | '__root__'
     | '/'
     | '/applications'
     | '/calendar'
     | '/home'
+    | '/membership'
     | '/navigator'
     | '/notifications'
     | '/profile'
     | '/saved'
+    | '/states'
     | '/communities/$communityId'
+    | '/communities/new'
     | '/opportunities/$oppId'
     | '/poster/analytics'
     | '/poster/applications'
@@ -250,9 +319,12 @@ export interface FileRouteTypes {
     | '/poster/new'
     | '/poster/opportunities'
     | '/poster/organization'
+    | '/signup/poster'
+    | '/signup/student'
     | '/communities/'
     | '/opportunities/'
     | '/poster/'
+    | '/signup/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -260,11 +332,14 @@ export interface RootRouteChildren {
   ApplicationsRoute: typeof ApplicationsRoute
   CalendarRoute: typeof CalendarRoute
   HomeRoute: typeof HomeRoute
+  MembershipRoute: typeof MembershipRoute
   NavigatorRoute: typeof NavigatorRoute
   NotificationsRoute: typeof NotificationsRoute
   ProfileRoute: typeof ProfileRoute
   SavedRoute: typeof SavedRoute
+  StatesRoute: typeof StatesRoute
   CommunitiesCommunityIdRoute: typeof CommunitiesCommunityIdRoute
+  CommunitiesNewRoute: typeof CommunitiesNewRoute
   OpportunitiesOppIdRoute: typeof OpportunitiesOppIdRoute
   PosterAnalyticsRoute: typeof PosterAnalyticsRoute
   PosterApplicationsRoute: typeof PosterApplicationsRoute
@@ -272,9 +347,12 @@ export interface RootRouteChildren {
   PosterNewRoute: typeof PosterNewRoute
   PosterOpportunitiesRoute: typeof PosterOpportunitiesRoute
   PosterOrganizationRoute: typeof PosterOrganizationRoute
+  SignupPosterRoute: typeof SignupPosterRoute
+  SignupStudentRoute: typeof SignupStudentRoute
   CommunitiesIndexRoute: typeof CommunitiesIndexRoute
   OpportunitiesIndexRoute: typeof OpportunitiesIndexRoute
   PosterIndexRoute: typeof PosterIndexRoute
+  SignupIndexRoute: typeof SignupIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -307,6 +385,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/membership': {
+      id: '/membership'
+      path: '/membership'
+      fullPath: '/membership'
+      preLoaderRoute: typeof MembershipRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/navigator': {
       id: '/navigator'
       path: '/navigator'
@@ -335,6 +420,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SavedRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/states': {
+      id: '/states'
+      path: '/states'
+      fullPath: '/states'
+      preLoaderRoute: typeof StatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/communities/': {
       id: '/communities/'
       path: '/communities'
@@ -347,6 +439,13 @@ declare module '@tanstack/react-router' {
       path: '/communities/$communityId'
       fullPath: '/communities/$communityId'
       preLoaderRoute: typeof CommunitiesCommunityIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/communities/new': {
+      id: '/communities/new'
+      path: '/communities/new'
+      fullPath: '/communities/new'
+      preLoaderRoute: typeof CommunitiesNewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/opportunities/': {
@@ -412,6 +511,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PosterOrganizationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/signup/': {
+      id: '/signup/'
+      path: '/signup'
+      fullPath: '/signup/'
+      preLoaderRoute: typeof SignupIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup/poster': {
+      id: '/signup/poster'
+      path: '/signup/poster'
+      fullPath: '/signup/poster'
+      preLoaderRoute: typeof SignupPosterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup/student': {
+      id: '/signup/student'
+      path: '/signup/student'
+      fullPath: '/signup/student'
+      preLoaderRoute: typeof SignupStudentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -420,11 +540,14 @@ const rootRouteChildren: RootRouteChildren = {
   ApplicationsRoute: ApplicationsRoute,
   CalendarRoute: CalendarRoute,
   HomeRoute: HomeRoute,
+  MembershipRoute: MembershipRoute,
   NavigatorRoute: NavigatorRoute,
   NotificationsRoute: NotificationsRoute,
   ProfileRoute: ProfileRoute,
   SavedRoute: SavedRoute,
+  StatesRoute: StatesRoute,
   CommunitiesCommunityIdRoute: CommunitiesCommunityIdRoute,
+  CommunitiesNewRoute: CommunitiesNewRoute,
   OpportunitiesOppIdRoute: OpportunitiesOppIdRoute,
   PosterAnalyticsRoute: PosterAnalyticsRoute,
   PosterApplicationsRoute: PosterApplicationsRoute,
@@ -432,9 +555,12 @@ const rootRouteChildren: RootRouteChildren = {
   PosterNewRoute: PosterNewRoute,
   PosterOpportunitiesRoute: PosterOpportunitiesRoute,
   PosterOrganizationRoute: PosterOrganizationRoute,
+  SignupPosterRoute: SignupPosterRoute,
+  SignupStudentRoute: SignupStudentRoute,
   CommunitiesIndexRoute: CommunitiesIndexRoute,
   OpportunitiesIndexRoute: OpportunitiesIndexRoute,
   PosterIndexRoute: PosterIndexRoute,
+  SignupIndexRoute: SignupIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -56,16 +56,22 @@ function Landing() {
         <p className="font-display text-sm font-bold">Opportunity Navigator</p>
         <nav className="flex items-center gap-2 text-sm">
           <Link
-            to="/poster"
+            to="/home"
+            className="hidden rounded-xl px-3 py-2 font-medium text-muted-foreground transition-colors hover:text-ink sm:block"
+          >
+            Explore
+          </Link>
+          <Link
+            to="/signup/poster"
             className="rounded-xl border border-border bg-card px-4 py-2 font-medium transition-colors hover:bg-muted"
           >
             Post an Opportunity
           </Link>
           <Link
-            to="/home"
+            to="/signup"
             className="rounded-xl bg-primary px-4 py-2 font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Explore Opportunities
+            Create account
           </Link>
         </nav>
       </header>
@@ -83,18 +89,21 @@ function Landing() {
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link
-            to="/home"
+            to="/signup"
             className="rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Get started — it's free
+          </Link>
+          <Link
+            to="/home"
+            className="rounded-xl border border-border bg-card px-6 py-3 text-sm font-semibold transition-colors hover:bg-muted"
           >
             Explore Opportunities
           </Link>
-          <Link
-            to="/poster"
-            className="rounded-xl border border-border bg-card px-6 py-3 text-sm font-semibold transition-colors hover:bg-muted"
-          >
-            Post an Opportunity
-          </Link>
         </div>
+        <p className="mt-4 text-xs text-muted-foreground">
+          Three minutes to set up · Organisations verify before their listings go live
+        </p>
       </section>
 
       <section className="mx-auto mt-14 max-w-6xl px-5">
