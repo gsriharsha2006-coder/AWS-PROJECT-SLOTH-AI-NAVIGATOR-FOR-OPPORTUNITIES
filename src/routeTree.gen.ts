@@ -22,6 +22,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as StatesRouteImport } from './routes/states'
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
+import { Route as AuthenticatedPosterOnboardingRouteImport } from './routes/_authenticated/poster-onboarding'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AuthForgotRouteImport } from './routes/auth.forgot'
@@ -45,8 +46,6 @@ import { Route as PosterNewRouteImport } from './routes/poster.new'
 import { Route as PosterOpportunitiesRouteImport } from './routes/poster.opportunities'
 import { Route as PosterOrganizationRouteImport } from './routes/poster.organization'
 import { Route as SignupIndexRouteImport } from './routes/signup.index'
-import { Route as SignupPosterRouteImport } from './routes/signup.poster'
-import { Route as SignupStudentRouteImport } from './routes/signup.student'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -112,6 +111,12 @@ const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
   path: '/onboarding',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedPosterOnboardingRoute =
+  AuthenticatedPosterOnboardingRouteImport.update({
+    id: '/poster-onboarding',
+    path: '/poster-onboarding',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthIndexRoute = AuthIndexRouteImport.update({
   id: '/auth/',
   path: '/auth/',
@@ -227,16 +232,6 @@ const SignupIndexRoute = SignupIndexRouteImport.update({
   path: '/signup/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SignupPosterRoute = SignupPosterRouteImport.update({
-  id: '/signup/poster',
-  path: '/signup/poster',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SignupStudentRoute = SignupStudentRouteImport.update({
-  id: '/signup/student',
-  path: '/signup/student',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -251,6 +246,7 @@ export interface FileRoutesByFullPath {
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/poster-onboarding': typeof AuthenticatedPosterOnboardingRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
@@ -269,8 +265,6 @@ export interface FileRoutesByFullPath {
   '/poster/new': typeof PosterNewRoute
   '/poster/opportunities': typeof PosterOpportunitiesRoute
   '/poster/organization': typeof PosterOrganizationRoute
-  '/signup/poster': typeof SignupPosterRoute
-  '/signup/student': typeof SignupStudentRoute
   '/auth/': typeof AuthIndexRoute
   '/communities/': typeof CommunitiesIndexRoute
   '/opportunities/': typeof OpportunitiesIndexRoute
@@ -290,6 +284,7 @@ export interface FileRoutesByTo {
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/poster-onboarding': typeof AuthenticatedPosterOnboardingRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
@@ -308,8 +303,6 @@ export interface FileRoutesByTo {
   '/poster/new': typeof PosterNewRoute
   '/poster/opportunities': typeof PosterOpportunitiesRoute
   '/poster/organization': typeof PosterOrganizationRoute
-  '/signup/poster': typeof SignupPosterRoute
-  '/signup/student': typeof SignupStudentRoute
   '/auth': typeof AuthIndexRoute
   '/communities': typeof CommunitiesIndexRoute
   '/opportunities': typeof OpportunitiesIndexRoute
@@ -331,6 +324,7 @@ export interface FileRoutesById {
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
+  '/_authenticated/poster-onboarding': typeof AuthenticatedPosterOnboardingRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
@@ -349,8 +343,6 @@ export interface FileRoutesById {
   '/poster/new': typeof PosterNewRoute
   '/poster/opportunities': typeof PosterOpportunitiesRoute
   '/poster/organization': typeof PosterOrganizationRoute
-  '/signup/poster': typeof SignupPosterRoute
-  '/signup/student': typeof SignupStudentRoute
   '/auth/': typeof AuthIndexRoute
   '/communities/': typeof CommunitiesIndexRoute
   '/opportunities/': typeof OpportunitiesIndexRoute
@@ -372,6 +364,7 @@ export interface FileRouteTypes {
     | '/saved'
     | '/states'
     | '/onboarding'
+    | '/poster-onboarding'
     | '/auth/callback'
     | '/auth/forgot'
     | '/auth/login'
@@ -390,8 +383,6 @@ export interface FileRouteTypes {
     | '/poster/new'
     | '/poster/opportunities'
     | '/poster/organization'
-    | '/signup/poster'
-    | '/signup/student'
     | '/auth/'
     | '/communities/'
     | '/opportunities/'
@@ -411,6 +402,7 @@ export interface FileRouteTypes {
     | '/saved'
     | '/states'
     | '/onboarding'
+    | '/poster-onboarding'
     | '/auth/callback'
     | '/auth/forgot'
     | '/auth/login'
@@ -429,8 +421,6 @@ export interface FileRouteTypes {
     | '/poster/new'
     | '/poster/opportunities'
     | '/poster/organization'
-    | '/signup/poster'
-    | '/signup/student'
     | '/auth'
     | '/communities'
     | '/opportunities'
@@ -451,6 +441,7 @@ export interface FileRouteTypes {
     | '/saved'
     | '/states'
     | '/_authenticated/onboarding'
+    | '/_authenticated/poster-onboarding'
     | '/auth/callback'
     | '/auth/forgot'
     | '/auth/login'
@@ -469,8 +460,6 @@ export interface FileRouteTypes {
     | '/poster/new'
     | '/poster/opportunities'
     | '/poster/organization'
-    | '/signup/poster'
-    | '/signup/student'
     | '/auth/'
     | '/communities/'
     | '/opportunities/'
@@ -509,8 +498,6 @@ export interface RootRouteChildren {
   PosterNewRoute: typeof PosterNewRoute
   PosterOpportunitiesRoute: typeof PosterOpportunitiesRoute
   PosterOrganizationRoute: typeof PosterOrganizationRoute
-  SignupPosterRoute: typeof SignupPosterRoute
-  SignupStudentRoute: typeof SignupStudentRoute
   AuthIndexRoute: typeof AuthIndexRoute
   CommunitiesIndexRoute: typeof CommunitiesIndexRoute
   OpportunitiesIndexRoute: typeof OpportunitiesIndexRoute
@@ -609,6 +596,13 @@ declare module '@tanstack/react-router' {
       path: '/onboarding'
       fullPath: '/onboarding'
       preLoaderRoute: typeof AuthenticatedOnboardingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/poster-onboarding': {
+      id: '/_authenticated/poster-onboarding'
+      path: '/poster-onboarding'
+      fullPath: '/poster-onboarding'
+      preLoaderRoute: typeof AuthenticatedPosterOnboardingRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/auth/': {
@@ -772,29 +766,17 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/signup/poster': {
-      id: '/signup/poster'
-      path: '/signup/poster'
-      fullPath: '/signup/poster'
-      preLoaderRoute: typeof SignupPosterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/signup/student': {
-      id: '/signup/student'
-      path: '/signup/student'
-      fullPath: '/signup/student'
-      preLoaderRoute: typeof SignupStudentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
+  AuthenticatedPosterOnboardingRoute: typeof AuthenticatedPosterOnboardingRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
+  AuthenticatedPosterOnboardingRoute: AuthenticatedPosterOnboardingRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -831,8 +813,6 @@ const rootRouteChildren: RootRouteChildren = {
   PosterNewRoute: PosterNewRoute,
   PosterOpportunitiesRoute: PosterOpportunitiesRoute,
   PosterOrganizationRoute: PosterOrganizationRoute,
-  SignupPosterRoute: SignupPosterRoute,
-  SignupStudentRoute: SignupStudentRoute,
   AuthIndexRoute: AuthIndexRoute,
   CommunitiesIndexRoute: CommunitiesIndexRoute,
   OpportunitiesIndexRoute: OpportunitiesIndexRoute,
