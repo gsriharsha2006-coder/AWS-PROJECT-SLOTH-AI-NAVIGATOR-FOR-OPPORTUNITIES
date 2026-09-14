@@ -14,7 +14,186 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      community_submissions: {
+        Row: {
+          created_at: string
+          first_activity: string | null
+          focus_areas: string[]
+          id: string
+          name: string
+          owner_id: string
+          purpose: string | null
+          region: string | null
+          rules: string | null
+          status: string
+          visibility: string | null
+        }
+        Insert: {
+          created_at?: string
+          first_activity?: string | null
+          focus_areas?: string[]
+          id?: string
+          name: string
+          owner_id: string
+          purpose?: string | null
+          region?: string | null
+          rules?: string | null
+          status?: string
+          visibility?: string | null
+        }
+        Update: {
+          created_at?: string
+          first_activity?: string | null
+          focus_areas?: string[]
+          id?: string
+          name?: string
+          owner_id?: string
+          purpose?: string | null
+          region?: string | null
+          rules?: string | null
+          status?: string
+          visibility?: string | null
+        }
+        Relationships: []
+      }
+      organizations: {
+        Row: {
+          contact_name: string | null
+          created_at: string
+          description: string | null
+          founded_year: string | null
+          id: string
+          industry: string | null
+          location: string | null
+          name: string
+          org_email: string | null
+          org_size: string | null
+          org_type: string | null
+          owner_id: string
+          phone: string | null
+          registration_number: string | null
+          submitted_at: string | null
+          updated_at: string
+          verification_method: string | null
+          verification_note: string | null
+          verification_status: Database["public"]["Enums"]["verification_status"]
+          website: string | null
+        }
+        Insert: {
+          contact_name?: string | null
+          created_at?: string
+          description?: string | null
+          founded_year?: string | null
+          id?: string
+          industry?: string | null
+          location?: string | null
+          name: string
+          org_email?: string | null
+          org_size?: string | null
+          org_type?: string | null
+          owner_id: string
+          phone?: string | null
+          registration_number?: string | null
+          submitted_at?: string | null
+          updated_at?: string
+          verification_method?: string | null
+          verification_note?: string | null
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+          website?: string | null
+        }
+        Update: {
+          contact_name?: string | null
+          created_at?: string
+          description?: string | null
+          founded_year?: string | null
+          id?: string
+          industry?: string | null
+          location?: string | null
+          name?: string
+          org_email?: string | null
+          org_size?: string | null
+          org_type?: string | null
+          owner_id?: string
+          phone?: string | null
+          registration_number?: string | null
+          submitted_at?: string | null
+          updated_at?: string
+          verification_method?: string | null
+          verification_note?: string | null
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+          website?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          city: string | null
+          created_at: string
+          current_year: string | null
+          degree: string | null
+          discipline: string | null
+          education_level: string | null
+          full_name: string
+          graduation_year: string | null
+          id: string
+          institution: string | null
+          interests: string[]
+          location_preference: string | null
+          mode_preference: string | null
+          onboarding_complete: boolean
+          opportunity_types: string[]
+          phone: string | null
+          role: Database["public"]["Enums"]["account_role"]
+          skills: string[]
+          state: string | null
+          updated_at: string
+        }
+        Insert: {
+          city?: string | null
+          created_at?: string
+          current_year?: string | null
+          degree?: string | null
+          discipline?: string | null
+          education_level?: string | null
+          full_name?: string
+          graduation_year?: string | null
+          id: string
+          institution?: string | null
+          interests?: string[]
+          location_preference?: string | null
+          mode_preference?: string | null
+          onboarding_complete?: boolean
+          opportunity_types?: string[]
+          phone?: string | null
+          role?: Database["public"]["Enums"]["account_role"]
+          skills?: string[]
+          state?: string | null
+          updated_at?: string
+        }
+        Update: {
+          city?: string | null
+          created_at?: string
+          current_year?: string | null
+          degree?: string | null
+          discipline?: string | null
+          education_level?: string | null
+          full_name?: string
+          graduation_year?: string | null
+          id?: string
+          institution?: string | null
+          interests?: string[]
+          location_preference?: string | null
+          mode_preference?: string | null
+          onboarding_complete?: boolean
+          opportunity_types?: string[]
+          phone?: string | null
+          role?: Database["public"]["Enums"]["account_role"]
+          skills?: string[]
+          state?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +202,14 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      account_role: "user" | "poster"
+      verification_status:
+        | "not_started"
+        | "in_progress"
+        | "under_review"
+        | "verified"
+        | "needs_correction"
+        | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +336,16 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      account_role: ["user", "poster"],
+      verification_status: [
+        "not_started",
+        "in_progress",
+        "under_review",
+        "verified",
+        "needs_correction",
+        "rejected",
+      ],
+    },
   },
 } as const
