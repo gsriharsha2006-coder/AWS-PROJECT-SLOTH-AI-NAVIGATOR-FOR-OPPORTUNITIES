@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { BrandMark } from "@/components/BrandMark";
 
 const floatingCards = [
   { title: "AI Innovation Challenge", meta: "Hackathon · 1 day left", tone: "urgent", top: "8%", left: "6%" },
@@ -32,9 +33,7 @@ export function AuthShell({
   return (
     <div className="aurora min-h-screen lg:grid lg:grid-cols-[1.05fr_1fr]">
       <section className="relative hidden overflow-hidden px-10 py-10 lg:flex lg:flex-col">
-        <Link to="/" className="font-display text-sm font-bold tracking-tight">
-          AI OPPORTUNITY NAVIGATOR
-        </Link>
+        <BrandMark context="Opportunity Navigator · India" />
 
         <div className="relative z-10 mt-auto max-w-lg">
           <h2 className="text-balance font-display text-4xl font-bold leading-[1.1]">
@@ -83,9 +82,7 @@ export function AuthShell({
 
       <section className="flex min-h-screen flex-col px-4 py-6 sm:px-8">
         <div className="flex items-center justify-between lg:hidden">
-          <Link to="/" className="font-display text-xs font-bold tracking-tight">
-            AI OPPORTUNITY NAVIGATOR
-          </Link>
+          <BrandMark compact />
           {eyebrow ? <span className="text-xs text-muted-foreground">{eyebrow}</span> : null}
         </div>
 
