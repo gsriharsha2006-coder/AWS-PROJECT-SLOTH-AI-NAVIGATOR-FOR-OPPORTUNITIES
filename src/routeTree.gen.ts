@@ -29,6 +29,8 @@ import { Route as PosterNewRouteImport } from './routes/poster.new'
 import { Route as PosterOpportunitiesRouteImport } from './routes/poster.opportunities'
 import { Route as PosterOrganizationRouteImport } from './routes/poster.organization'
 import { Route as SignupIndexRouteImport } from './routes/signup.index'
+import { Route as SignupPosterRouteImport } from './routes/signup.poster'
+import { Route as SignupStudentRouteImport } from './routes/signup.student'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -130,6 +132,16 @@ const SignupIndexRoute = SignupIndexRouteImport.update({
   path: '/signup/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SignupPosterRoute = SignupPosterRouteImport.update({
+  id: '/signup/poster',
+  path: '/signup/poster',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupStudentRoute = SignupStudentRouteImport.update({
+  id: '/signup/student',
+  path: '/signup/student',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -148,6 +160,8 @@ export interface FileRoutesByFullPath {
   '/poster/new': typeof PosterNewRoute
   '/poster/opportunities': typeof PosterOpportunitiesRoute
   '/poster/organization': typeof PosterOrganizationRoute
+  '/signup/poster': typeof SignupPosterRoute
+  '/signup/student': typeof SignupStudentRoute
   '/communities/': typeof CommunitiesIndexRoute
   '/opportunities/': typeof OpportunitiesIndexRoute
   '/poster/': typeof PosterIndexRoute
@@ -170,6 +184,8 @@ export interface FileRoutesByTo {
   '/poster/new': typeof PosterNewRoute
   '/poster/opportunities': typeof PosterOpportunitiesRoute
   '/poster/organization': typeof PosterOrganizationRoute
+  '/signup/poster': typeof SignupPosterRoute
+  '/signup/student': typeof SignupStudentRoute
   '/communities': typeof CommunitiesIndexRoute
   '/opportunities': typeof OpportunitiesIndexRoute
   '/poster': typeof PosterIndexRoute
@@ -193,6 +209,8 @@ export interface FileRoutesById {
   '/poster/new': typeof PosterNewRoute
   '/poster/opportunities': typeof PosterOpportunitiesRoute
   '/poster/organization': typeof PosterOrganizationRoute
+  '/signup/poster': typeof SignupPosterRoute
+  '/signup/student': typeof SignupStudentRoute
   '/communities/': typeof CommunitiesIndexRoute
   '/opportunities/': typeof OpportunitiesIndexRoute
   '/poster/': typeof PosterIndexRoute
@@ -217,6 +235,8 @@ export interface FileRouteTypes {
     | '/poster/new'
     | '/poster/opportunities'
     | '/poster/organization'
+    | '/signup/poster'
+    | '/signup/student'
     | '/communities/'
     | '/opportunities/'
     | '/poster/'
@@ -239,6 +259,8 @@ export interface FileRouteTypes {
     | '/poster/new'
     | '/poster/opportunities'
     | '/poster/organization'
+    | '/signup/poster'
+    | '/signup/student'
     | '/communities'
     | '/opportunities'
     | '/poster'
@@ -261,6 +283,8 @@ export interface FileRouteTypes {
     | '/poster/new'
     | '/poster/opportunities'
     | '/poster/organization'
+    | '/signup/poster'
+    | '/signup/student'
     | '/communities/'
     | '/opportunities/'
     | '/poster/'
@@ -284,6 +308,8 @@ export interface RootRouteChildren {
   PosterNewRoute: typeof PosterNewRoute
   PosterOpportunitiesRoute: typeof PosterOpportunitiesRoute
   PosterOrganizationRoute: typeof PosterOrganizationRoute
+  SignupPosterRoute: typeof SignupPosterRoute
+  SignupStudentRoute: typeof SignupStudentRoute
   CommunitiesIndexRoute: typeof CommunitiesIndexRoute
   OpportunitiesIndexRoute: typeof OpportunitiesIndexRoute
   PosterIndexRoute: typeof PosterIndexRoute
@@ -432,6 +458,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/signup/poster': {
+      id: '/signup/poster'
+      path: '/signup/poster'
+      fullPath: '/signup/poster'
+      preLoaderRoute: typeof SignupPosterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup/student': {
+      id: '/signup/student'
+      path: '/signup/student'
+      fullPath: '/signup/student'
+      preLoaderRoute: typeof SignupStudentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -452,6 +492,8 @@ const rootRouteChildren: RootRouteChildren = {
   PosterNewRoute: PosterNewRoute,
   PosterOpportunitiesRoute: PosterOpportunitiesRoute,
   PosterOrganizationRoute: PosterOrganizationRoute,
+  SignupPosterRoute: SignupPosterRoute,
+  SignupStudentRoute: SignupStudentRoute,
   CommunitiesIndexRoute: CommunitiesIndexRoute,
   OpportunitiesIndexRoute: OpportunitiesIndexRoute,
   PosterIndexRoute: PosterIndexRoute,
