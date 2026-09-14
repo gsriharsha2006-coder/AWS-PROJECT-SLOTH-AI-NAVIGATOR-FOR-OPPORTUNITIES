@@ -13,12 +13,14 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApplicationsRouteImport } from './routes/applications'
 import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as HomeRouteImport } from './routes/home'
+import { Route as MembershipRouteImport } from './routes/membership'
 import { Route as NavigatorRouteImport } from './routes/navigator'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as CommunitiesIndexRouteImport } from './routes/communities.index'
 import { Route as CommunitiesCommunityIdRouteImport } from './routes/communities.$communityId'
+import { Route as CommunitiesNewRouteImport } from './routes/communities.new'
 import { Route as OpportunitiesIndexRouteImport } from './routes/opportunities.index'
 import { Route as OpportunitiesOppIdRouteImport } from './routes/opportunities.$oppId'
 import { Route as PosterIndexRouteImport } from './routes/poster.index'
@@ -52,6 +54,11 @@ const HomeRoute = HomeRouteImport.update({
   path: '/home',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MembershipRoute = MembershipRouteImport.update({
+  id: '/membership',
+  path: '/membership',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NavigatorRoute = NavigatorRouteImport.update({
   id: '/navigator',
   path: '/navigator',
@@ -80,6 +87,11 @@ const CommunitiesIndexRoute = CommunitiesIndexRouteImport.update({
 const CommunitiesCommunityIdRoute = CommunitiesCommunityIdRouteImport.update({
   id: '/communities/$communityId',
   path: '/communities/$communityId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunitiesNewRoute = CommunitiesNewRouteImport.update({
+  id: '/communities/new',
+  path: '/communities/new',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OpportunitiesIndexRoute = OpportunitiesIndexRouteImport.update({
@@ -148,11 +160,13 @@ export interface FileRoutesByFullPath {
   '/applications': typeof ApplicationsRoute
   '/calendar': typeof CalendarRoute
   '/home': typeof HomeRoute
+  '/membership': typeof MembershipRoute
   '/navigator': typeof NavigatorRoute
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
+  '/communities/new': typeof CommunitiesNewRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
   '/poster/analytics': typeof PosterAnalyticsRoute
   '/poster/applications': typeof PosterApplicationsRoute
@@ -172,11 +186,13 @@ export interface FileRoutesByTo {
   '/applications': typeof ApplicationsRoute
   '/calendar': typeof CalendarRoute
   '/home': typeof HomeRoute
+  '/membership': typeof MembershipRoute
   '/navigator': typeof NavigatorRoute
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
+  '/communities/new': typeof CommunitiesNewRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
   '/poster/analytics': typeof PosterAnalyticsRoute
   '/poster/applications': typeof PosterApplicationsRoute
@@ -197,11 +213,13 @@ export interface FileRoutesById {
   '/applications': typeof ApplicationsRoute
   '/calendar': typeof CalendarRoute
   '/home': typeof HomeRoute
+  '/membership': typeof MembershipRoute
   '/navigator': typeof NavigatorRoute
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
+  '/communities/new': typeof CommunitiesNewRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
   '/poster/analytics': typeof PosterAnalyticsRoute
   '/poster/applications': typeof PosterApplicationsRoute
@@ -223,11 +241,13 @@ export interface FileRouteTypes {
     | '/applications'
     | '/calendar'
     | '/home'
+    | '/membership'
     | '/navigator'
     | '/notifications'
     | '/profile'
     | '/saved'
     | '/communities/$communityId'
+    | '/communities/new'
     | '/opportunities/$oppId'
     | '/poster/analytics'
     | '/poster/applications'
@@ -247,11 +267,13 @@ export interface FileRouteTypes {
     | '/applications'
     | '/calendar'
     | '/home'
+    | '/membership'
     | '/navigator'
     | '/notifications'
     | '/profile'
     | '/saved'
     | '/communities/$communityId'
+    | '/communities/new'
     | '/opportunities/$oppId'
     | '/poster/analytics'
     | '/poster/applications'
@@ -271,11 +293,13 @@ export interface FileRouteTypes {
     | '/applications'
     | '/calendar'
     | '/home'
+    | '/membership'
     | '/navigator'
     | '/notifications'
     | '/profile'
     | '/saved'
     | '/communities/$communityId'
+    | '/communities/new'
     | '/opportunities/$oppId'
     | '/poster/analytics'
     | '/poster/applications'
@@ -296,11 +320,13 @@ export interface RootRouteChildren {
   ApplicationsRoute: typeof ApplicationsRoute
   CalendarRoute: typeof CalendarRoute
   HomeRoute: typeof HomeRoute
+  MembershipRoute: typeof MembershipRoute
   NavigatorRoute: typeof NavigatorRoute
   NotificationsRoute: typeof NotificationsRoute
   ProfileRoute: typeof ProfileRoute
   SavedRoute: typeof SavedRoute
   CommunitiesCommunityIdRoute: typeof CommunitiesCommunityIdRoute
+  CommunitiesNewRoute: typeof CommunitiesNewRoute
   OpportunitiesOppIdRoute: typeof OpportunitiesOppIdRoute
   PosterAnalyticsRoute: typeof PosterAnalyticsRoute
   PosterApplicationsRoute: typeof PosterApplicationsRoute
@@ -346,6 +372,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/membership': {
+      id: '/membership'
+      path: '/membership'
+      fullPath: '/membership'
+      preLoaderRoute: typeof MembershipRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/navigator': {
       id: '/navigator'
       path: '/navigator'
@@ -386,6 +419,13 @@ declare module '@tanstack/react-router' {
       path: '/communities/$communityId'
       fullPath: '/communities/$communityId'
       preLoaderRoute: typeof CommunitiesCommunityIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/communities/new': {
+      id: '/communities/new'
+      path: '/communities/new'
+      fullPath: '/communities/new'
+      preLoaderRoute: typeof CommunitiesNewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/opportunities/': {
@@ -480,11 +520,13 @@ const rootRouteChildren: RootRouteChildren = {
   ApplicationsRoute: ApplicationsRoute,
   CalendarRoute: CalendarRoute,
   HomeRoute: HomeRoute,
+  MembershipRoute: MembershipRoute,
   NavigatorRoute: NavigatorRoute,
   NotificationsRoute: NotificationsRoute,
   ProfileRoute: ProfileRoute,
   SavedRoute: SavedRoute,
   CommunitiesCommunityIdRoute: CommunitiesCommunityIdRoute,
+  CommunitiesNewRoute: CommunitiesNewRoute,
   OpportunitiesOppIdRoute: OpportunitiesOppIdRoute,
   PosterAnalyticsRoute: PosterAnalyticsRoute,
   PosterApplicationsRoute: PosterApplicationsRoute,
