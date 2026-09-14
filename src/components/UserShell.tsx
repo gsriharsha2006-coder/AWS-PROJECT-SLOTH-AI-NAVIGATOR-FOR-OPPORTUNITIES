@@ -8,8 +8,10 @@ const nav = [
   { to: "/communities", label: "Commun-In", icon: "◍" },
   { to: "/applications", label: "My Applications", icon: "▣" },
   { to: "/saved", label: "Saved", icon: "♢" },
+  { to: "/membership", label: "Sloth Membership", icon: "◈" },
   { to: "/profile", label: "Profile", icon: "◑" },
 ] as const;
+
 
 export function UserShell({
   title,

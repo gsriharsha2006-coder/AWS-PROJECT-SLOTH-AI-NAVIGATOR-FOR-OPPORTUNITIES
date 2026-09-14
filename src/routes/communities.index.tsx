@@ -27,8 +27,17 @@ function CommunitiesPage() {
     <UserShell
       title="Commun-In"
       subtitle="Communities exist to help you participate: find a team, prepare together, attend approved events and join verified collaborations."
+      actions={
+        <Link
+          to="/communities/new"
+          className="rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+        >
+          Create community
+        </Link>
+      }
     >
       <div className="grid gap-4 md:grid-cols-2">
+
         {communities.map((c) => (
           <article key={c.id} className="float-card rounded-2xl p-5">
             <div className="flex items-start justify-between gap-3">
