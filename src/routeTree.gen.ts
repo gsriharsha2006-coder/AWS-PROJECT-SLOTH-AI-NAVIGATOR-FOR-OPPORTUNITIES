@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as ApplicationsRouteImport } from './routes/applications'
 import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as HomeRouteImport } from './routes/home'
@@ -20,6 +21,7 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as StatesRouteImport } from './routes/states'
+import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AuthForgotRouteImport } from './routes/auth.forgot'
@@ -31,6 +33,8 @@ import { Route as AuthVerifyRouteImport } from './routes/auth.verify'
 import { Route as CommunitiesIndexRouteImport } from './routes/communities.index'
 import { Route as CommunitiesCommunityIdRouteImport } from './routes/communities.$communityId'
 import { Route as CommunitiesNewRouteImport } from './routes/communities.new'
+import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
+import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as OpportunitiesIndexRouteImport } from './routes/opportunities.index'
 import { Route as OpportunitiesOppIdRouteImport } from './routes/opportunities.$oppId'
 import { Route as PosterIndexRouteImport } from './routes/poster.index'
@@ -47,6 +51,10 @@ import { Route as SignupStudentRouteImport } from './routes/signup.student'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApplicationsRoute = ApplicationsRouteImport.update({
@@ -98,6 +106,11 @@ const StatesRoute = StatesRouteImport.update({
   id: '/states',
   path: '/states',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthIndexRoute = AuthIndexRouteImport.update({
   id: '/auth/',
@@ -152,6 +165,16 @@ const CommunitiesCommunityIdRoute = CommunitiesCommunityIdRouteImport.update({
 const CommunitiesNewRoute = CommunitiesNewRouteImport.update({
   id: '/communities/new',
   path: '/communities/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalPrivacyRoute = LegalPrivacyRouteImport.update({
+  id: '/legal/privacy',
+  path: '/legal/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalTermsRoute = LegalTermsRouteImport.update({
+  id: '/legal/terms',
+  path: '/legal/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OpportunitiesIndexRoute = OpportunitiesIndexRouteImport.update({
@@ -227,6 +250,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
+  '/onboarding': typeof AuthenticatedOnboardingRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
@@ -236,6 +260,8 @@ export interface FileRoutesByFullPath {
   '/auth/verify': typeof AuthVerifyRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/communities/new': typeof CommunitiesNewRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
   '/poster/analytics': typeof PosterAnalyticsRoute
   '/poster/applications': typeof PosterApplicationsRoute
@@ -263,6 +289,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
+  '/onboarding': typeof AuthenticatedOnboardingRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
@@ -272,6 +299,8 @@ export interface FileRoutesByTo {
   '/auth/verify': typeof AuthVerifyRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/communities/new': typeof CommunitiesNewRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
   '/poster/analytics': typeof PosterAnalyticsRoute
   '/poster/applications': typeof PosterApplicationsRoute
@@ -290,6 +319,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/applications': typeof ApplicationsRoute
   '/calendar': typeof CalendarRoute
   '/home': typeof HomeRoute
@@ -300,6 +330,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
+  '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
@@ -309,6 +340,8 @@ export interface FileRoutesById {
   '/auth/verify': typeof AuthVerifyRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/communities/new': typeof CommunitiesNewRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
   '/poster/analytics': typeof PosterAnalyticsRoute
   '/poster/applications': typeof PosterApplicationsRoute
@@ -338,6 +371,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/saved'
     | '/states'
+    | '/onboarding'
     | '/auth/callback'
     | '/auth/forgot'
     | '/auth/login'
@@ -347,6 +381,8 @@ export interface FileRouteTypes {
     | '/auth/verify'
     | '/communities/$communityId'
     | '/communities/new'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/opportunities/$oppId'
     | '/poster/analytics'
     | '/poster/applications'
@@ -374,6 +410,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/saved'
     | '/states'
+    | '/onboarding'
     | '/auth/callback'
     | '/auth/forgot'
     | '/auth/login'
@@ -383,6 +420,8 @@ export interface FileRouteTypes {
     | '/auth/verify'
     | '/communities/$communityId'
     | '/communities/new'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/opportunities/$oppId'
     | '/poster/analytics'
     | '/poster/applications'
@@ -400,6 +439,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/applications'
     | '/calendar'
     | '/home'
@@ -410,6 +450,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/saved'
     | '/states'
+    | '/_authenticated/onboarding'
     | '/auth/callback'
     | '/auth/forgot'
     | '/auth/login'
@@ -419,6 +460,8 @@ export interface FileRouteTypes {
     | '/auth/verify'
     | '/communities/$communityId'
     | '/communities/new'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/opportunities/$oppId'
     | '/poster/analytics'
     | '/poster/applications'
@@ -437,6 +480,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   ApplicationsRoute: typeof ApplicationsRoute
   CalendarRoute: typeof CalendarRoute
   HomeRoute: typeof HomeRoute
@@ -456,6 +500,8 @@ export interface RootRouteChildren {
   AuthVerifyRoute: typeof AuthVerifyRoute
   CommunitiesCommunityIdRoute: typeof CommunitiesCommunityIdRoute
   CommunitiesNewRoute: typeof CommunitiesNewRoute
+  LegalPrivacyRoute: typeof LegalPrivacyRoute
+  LegalTermsRoute: typeof LegalTermsRoute
   OpportunitiesOppIdRoute: typeof OpportunitiesOppIdRoute
   PosterAnalyticsRoute: typeof PosterAnalyticsRoute
   PosterApplicationsRoute: typeof PosterApplicationsRoute
@@ -479,6 +525,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/applications': {
@@ -550,6 +603,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/states'
       preLoaderRoute: typeof StatesRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/onboarding': {
+      id: '/_authenticated/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof AuthenticatedOnboardingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/auth/': {
       id: '/auth/'
@@ -626,6 +686,20 @@ declare module '@tanstack/react-router' {
       path: '/communities/new'
       fullPath: '/communities/new'
       preLoaderRoute: typeof CommunitiesNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/privacy': {
+      id: '/legal/privacy'
+      path: '/legal/privacy'
+      fullPath: '/legal/privacy'
+      preLoaderRoute: typeof LegalPrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/terms': {
+      id: '/legal/terms'
+      path: '/legal/terms'
+      fullPath: '/legal/terms'
+      preLoaderRoute: typeof LegalTermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/opportunities/': {
@@ -715,8 +789,20 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   ApplicationsRoute: ApplicationsRoute,
   CalendarRoute: CalendarRoute,
   HomeRoute: HomeRoute,
@@ -736,6 +822,8 @@ const rootRouteChildren: RootRouteChildren = {
   AuthVerifyRoute: AuthVerifyRoute,
   CommunitiesCommunityIdRoute: CommunitiesCommunityIdRoute,
   CommunitiesNewRoute: CommunitiesNewRoute,
+  LegalPrivacyRoute: LegalPrivacyRoute,
+  LegalTermsRoute: LegalTermsRoute,
   OpportunitiesOppIdRoute: OpportunitiesOppIdRoute,
   PosterAnalyticsRoute: PosterAnalyticsRoute,
   PosterApplicationsRoute: PosterApplicationsRoute,
