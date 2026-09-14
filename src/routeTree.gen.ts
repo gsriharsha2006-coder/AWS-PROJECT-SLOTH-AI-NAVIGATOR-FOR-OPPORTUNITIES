@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as ApplicationsRouteImport } from './routes/applications'
 import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as HomeRouteImport } from './routes/home'
@@ -17,11 +18,24 @@ import { Route as MembershipRouteImport } from './routes/membership'
 import { Route as NavigatorRouteImport } from './routes/navigator'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as StatesRouteImport } from './routes/states'
+import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
+import { Route as AuthenticatedPosterOnboardingRouteImport } from './routes/_authenticated/poster-onboarding'
+import { Route as AuthIndexRouteImport } from './routes/auth.index'
+import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
+import { Route as AuthForgotRouteImport } from './routes/auth.forgot'
+import { Route as AuthLoginRouteImport } from './routes/auth.login'
+import { Route as AuthPosterLoginRouteImport } from './routes/auth.poster-login'
+import { Route as AuthRoleRouteImport } from './routes/auth.role'
+import { Route as AuthSignupRouteImport } from './routes/auth.signup'
+import { Route as AuthVerifyRouteImport } from './routes/auth.verify'
 import { Route as CommunitiesIndexRouteImport } from './routes/communities.index'
 import { Route as CommunitiesCommunityIdRouteImport } from './routes/communities.$communityId'
 import { Route as CommunitiesNewRouteImport } from './routes/communities.new'
+import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
+import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as OpportunitiesIndexRouteImport } from './routes/opportunities.index'
 import { Route as OpportunitiesOppIdRouteImport } from './routes/opportunities.$oppId'
 import { Route as PosterIndexRouteImport } from './routes/poster.index'
@@ -32,12 +46,14 @@ import { Route as PosterNewRouteImport } from './routes/poster.new'
 import { Route as PosterOpportunitiesRouteImport } from './routes/poster.opportunities'
 import { Route as PosterOrganizationRouteImport } from './routes/poster.organization'
 import { Route as SignupIndexRouteImport } from './routes/signup.index'
-import { Route as SignupPosterRouteImport } from './routes/signup.poster'
-import { Route as SignupStudentRouteImport } from './routes/signup.student'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApplicationsRoute = ApplicationsRouteImport.update({
@@ -75,6 +91,11 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SavedRoute = SavedRouteImport.update({
   id: '/saved',
   path: '/saved',
@@ -83,6 +104,57 @@ const SavedRoute = SavedRouteImport.update({
 const StatesRoute = StatesRouteImport.update({
   id: '/states',
   path: '/states',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPosterOnboardingRoute =
+  AuthenticatedPosterOnboardingRouteImport.update({
+    id: '/poster-onboarding',
+    path: '/poster-onboarding',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthIndexRoute = AuthIndexRouteImport.update({
+  id: '/auth/',
+  path: '/auth/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/auth/callback',
+  path: '/auth/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthForgotRoute = AuthForgotRouteImport.update({
+  id: '/auth/forgot',
+  path: '/auth/forgot',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthPosterLoginRoute = AuthPosterLoginRouteImport.update({
+  id: '/auth/poster-login',
+  path: '/auth/poster-login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoleRoute = AuthRoleRouteImport.update({
+  id: '/auth/role',
+  path: '/auth/role',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthSignupRoute = AuthSignupRouteImport.update({
+  id: '/auth/signup',
+  path: '/auth/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthVerifyRoute = AuthVerifyRouteImport.update({
+  id: '/auth/verify',
+  path: '/auth/verify',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CommunitiesIndexRoute = CommunitiesIndexRouteImport.update({
@@ -98,6 +170,16 @@ const CommunitiesCommunityIdRoute = CommunitiesCommunityIdRouteImport.update({
 const CommunitiesNewRoute = CommunitiesNewRouteImport.update({
   id: '/communities/new',
   path: '/communities/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalPrivacyRoute = LegalPrivacyRouteImport.update({
+  id: '/legal/privacy',
+  path: '/legal/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalTermsRoute = LegalTermsRouteImport.update({
+  id: '/legal/terms',
+  path: '/legal/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OpportunitiesIndexRoute = OpportunitiesIndexRouteImport.update({
@@ -150,16 +232,6 @@ const SignupIndexRoute = SignupIndexRouteImport.update({
   path: '/signup/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SignupPosterRoute = SignupPosterRouteImport.update({
-  id: '/signup/poster',
-  path: '/signup/poster',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SignupStudentRoute = SignupStudentRouteImport.update({
-  id: '/signup/student',
-  path: '/signup/student',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -170,10 +242,22 @@ export interface FileRoutesByFullPath {
   '/navigator': typeof NavigatorRoute
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
+  '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/poster-onboarding': typeof AuthenticatedPosterOnboardingRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/auth/forgot': typeof AuthForgotRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/poster-login': typeof AuthPosterLoginRoute
+  '/auth/role': typeof AuthRoleRoute
+  '/auth/signup': typeof AuthSignupRoute
+  '/auth/verify': typeof AuthVerifyRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/communities/new': typeof CommunitiesNewRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
   '/poster/analytics': typeof PosterAnalyticsRoute
   '/poster/applications': typeof PosterApplicationsRoute
@@ -181,8 +265,7 @@ export interface FileRoutesByFullPath {
   '/poster/new': typeof PosterNewRoute
   '/poster/opportunities': typeof PosterOpportunitiesRoute
   '/poster/organization': typeof PosterOrganizationRoute
-  '/signup/poster': typeof SignupPosterRoute
-  '/signup/student': typeof SignupStudentRoute
+  '/auth/': typeof AuthIndexRoute
   '/communities/': typeof CommunitiesIndexRoute
   '/opportunities/': typeof OpportunitiesIndexRoute
   '/poster/': typeof PosterIndexRoute
@@ -197,10 +280,22 @@ export interface FileRoutesByTo {
   '/navigator': typeof NavigatorRoute
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
+  '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/poster-onboarding': typeof AuthenticatedPosterOnboardingRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/auth/forgot': typeof AuthForgotRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/poster-login': typeof AuthPosterLoginRoute
+  '/auth/role': typeof AuthRoleRoute
+  '/auth/signup': typeof AuthSignupRoute
+  '/auth/verify': typeof AuthVerifyRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/communities/new': typeof CommunitiesNewRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
   '/poster/analytics': typeof PosterAnalyticsRoute
   '/poster/applications': typeof PosterApplicationsRoute
@@ -208,8 +303,7 @@ export interface FileRoutesByTo {
   '/poster/new': typeof PosterNewRoute
   '/poster/opportunities': typeof PosterOpportunitiesRoute
   '/poster/organization': typeof PosterOrganizationRoute
-  '/signup/poster': typeof SignupPosterRoute
-  '/signup/student': typeof SignupStudentRoute
+  '/auth': typeof AuthIndexRoute
   '/communities': typeof CommunitiesIndexRoute
   '/opportunities': typeof OpportunitiesIndexRoute
   '/poster': typeof PosterIndexRoute
@@ -218,6 +312,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/applications': typeof ApplicationsRoute
   '/calendar': typeof CalendarRoute
   '/home': typeof HomeRoute
@@ -225,10 +320,22 @@ export interface FileRoutesById {
   '/navigator': typeof NavigatorRoute
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
+  '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
+  '/_authenticated/poster-onboarding': typeof AuthenticatedPosterOnboardingRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/auth/forgot': typeof AuthForgotRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/poster-login': typeof AuthPosterLoginRoute
+  '/auth/role': typeof AuthRoleRoute
+  '/auth/signup': typeof AuthSignupRoute
+  '/auth/verify': typeof AuthVerifyRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/communities/new': typeof CommunitiesNewRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
   '/poster/analytics': typeof PosterAnalyticsRoute
   '/poster/applications': typeof PosterApplicationsRoute
@@ -236,8 +343,7 @@ export interface FileRoutesById {
   '/poster/new': typeof PosterNewRoute
   '/poster/opportunities': typeof PosterOpportunitiesRoute
   '/poster/organization': typeof PosterOrganizationRoute
-  '/signup/poster': typeof SignupPosterRoute
-  '/signup/student': typeof SignupStudentRoute
+  '/auth/': typeof AuthIndexRoute
   '/communities/': typeof CommunitiesIndexRoute
   '/opportunities/': typeof OpportunitiesIndexRoute
   '/poster/': typeof PosterIndexRoute
@@ -254,10 +360,22 @@ export interface FileRouteTypes {
     | '/navigator'
     | '/notifications'
     | '/profile'
+    | '/reset-password'
     | '/saved'
     | '/states'
+    | '/onboarding'
+    | '/poster-onboarding'
+    | '/auth/callback'
+    | '/auth/forgot'
+    | '/auth/login'
+    | '/auth/poster-login'
+    | '/auth/role'
+    | '/auth/signup'
+    | '/auth/verify'
     | '/communities/$communityId'
     | '/communities/new'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/opportunities/$oppId'
     | '/poster/analytics'
     | '/poster/applications'
@@ -265,8 +383,7 @@ export interface FileRouteTypes {
     | '/poster/new'
     | '/poster/opportunities'
     | '/poster/organization'
-    | '/signup/poster'
-    | '/signup/student'
+    | '/auth/'
     | '/communities/'
     | '/opportunities/'
     | '/poster/'
@@ -281,10 +398,22 @@ export interface FileRouteTypes {
     | '/navigator'
     | '/notifications'
     | '/profile'
+    | '/reset-password'
     | '/saved'
     | '/states'
+    | '/onboarding'
+    | '/poster-onboarding'
+    | '/auth/callback'
+    | '/auth/forgot'
+    | '/auth/login'
+    | '/auth/poster-login'
+    | '/auth/role'
+    | '/auth/signup'
+    | '/auth/verify'
     | '/communities/$communityId'
     | '/communities/new'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/opportunities/$oppId'
     | '/poster/analytics'
     | '/poster/applications'
@@ -292,8 +421,7 @@ export interface FileRouteTypes {
     | '/poster/new'
     | '/poster/opportunities'
     | '/poster/organization'
-    | '/signup/poster'
-    | '/signup/student'
+    | '/auth'
     | '/communities'
     | '/opportunities'
     | '/poster'
@@ -301,6 +429,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/applications'
     | '/calendar'
     | '/home'
@@ -308,10 +437,22 @@ export interface FileRouteTypes {
     | '/navigator'
     | '/notifications'
     | '/profile'
+    | '/reset-password'
     | '/saved'
     | '/states'
+    | '/_authenticated/onboarding'
+    | '/_authenticated/poster-onboarding'
+    | '/auth/callback'
+    | '/auth/forgot'
+    | '/auth/login'
+    | '/auth/poster-login'
+    | '/auth/role'
+    | '/auth/signup'
+    | '/auth/verify'
     | '/communities/$communityId'
     | '/communities/new'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/opportunities/$oppId'
     | '/poster/analytics'
     | '/poster/applications'
@@ -319,8 +460,7 @@ export interface FileRouteTypes {
     | '/poster/new'
     | '/poster/opportunities'
     | '/poster/organization'
-    | '/signup/poster'
-    | '/signup/student'
+    | '/auth/'
     | '/communities/'
     | '/opportunities/'
     | '/poster/'
@@ -329,6 +469,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   ApplicationsRoute: typeof ApplicationsRoute
   CalendarRoute: typeof CalendarRoute
   HomeRoute: typeof HomeRoute
@@ -336,10 +477,20 @@ export interface RootRouteChildren {
   NavigatorRoute: typeof NavigatorRoute
   NotificationsRoute: typeof NotificationsRoute
   ProfileRoute: typeof ProfileRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SavedRoute: typeof SavedRoute
   StatesRoute: typeof StatesRoute
+  AuthCallbackRoute: typeof AuthCallbackRoute
+  AuthForgotRoute: typeof AuthForgotRoute
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthPosterLoginRoute: typeof AuthPosterLoginRoute
+  AuthRoleRoute: typeof AuthRoleRoute
+  AuthSignupRoute: typeof AuthSignupRoute
+  AuthVerifyRoute: typeof AuthVerifyRoute
   CommunitiesCommunityIdRoute: typeof CommunitiesCommunityIdRoute
   CommunitiesNewRoute: typeof CommunitiesNewRoute
+  LegalPrivacyRoute: typeof LegalPrivacyRoute
+  LegalTermsRoute: typeof LegalTermsRoute
   OpportunitiesOppIdRoute: typeof OpportunitiesOppIdRoute
   PosterAnalyticsRoute: typeof PosterAnalyticsRoute
   PosterApplicationsRoute: typeof PosterApplicationsRoute
@@ -347,8 +498,7 @@ export interface RootRouteChildren {
   PosterNewRoute: typeof PosterNewRoute
   PosterOpportunitiesRoute: typeof PosterOpportunitiesRoute
   PosterOrganizationRoute: typeof PosterOrganizationRoute
-  SignupPosterRoute: typeof SignupPosterRoute
-  SignupStudentRoute: typeof SignupStudentRoute
+  AuthIndexRoute: typeof AuthIndexRoute
   CommunitiesIndexRoute: typeof CommunitiesIndexRoute
   OpportunitiesIndexRoute: typeof OpportunitiesIndexRoute
   PosterIndexRoute: typeof PosterIndexRoute
@@ -362,6 +512,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/applications': {
@@ -413,6 +570,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/saved': {
       id: '/saved'
       path: '/saved'
@@ -425,6 +589,76 @@ declare module '@tanstack/react-router' {
       path: '/states'
       fullPath: '/states'
       preLoaderRoute: typeof StatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/onboarding': {
+      id: '/_authenticated/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof AuthenticatedOnboardingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/poster-onboarding': {
+      id: '/_authenticated/poster-onboarding'
+      path: '/poster-onboarding'
+      fullPath: '/poster-onboarding'
+      preLoaderRoute: typeof AuthenticatedPosterOnboardingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/auth/': {
+      id: '/auth/'
+      path: '/auth'
+      fullPath: '/auth/'
+      preLoaderRoute: typeof AuthIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/callback': {
+      id: '/auth/callback'
+      path: '/auth/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/forgot': {
+      id: '/auth/forgot'
+      path: '/auth/forgot'
+      fullPath: '/auth/forgot'
+      preLoaderRoute: typeof AuthForgotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/poster-login': {
+      id: '/auth/poster-login'
+      path: '/auth/poster-login'
+      fullPath: '/auth/poster-login'
+      preLoaderRoute: typeof AuthPosterLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/role': {
+      id: '/auth/role'
+      path: '/auth/role'
+      fullPath: '/auth/role'
+      preLoaderRoute: typeof AuthRoleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/signup': {
+      id: '/auth/signup'
+      path: '/auth/signup'
+      fullPath: '/auth/signup'
+      preLoaderRoute: typeof AuthSignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/verify': {
+      id: '/auth/verify'
+      path: '/auth/verify'
+      fullPath: '/auth/verify'
+      preLoaderRoute: typeof AuthVerifyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/communities/': {
@@ -446,6 +680,20 @@ declare module '@tanstack/react-router' {
       path: '/communities/new'
       fullPath: '/communities/new'
       preLoaderRoute: typeof CommunitiesNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/privacy': {
+      id: '/legal/privacy'
+      path: '/legal/privacy'
+      fullPath: '/legal/privacy'
+      preLoaderRoute: typeof LegalPrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/terms': {
+      id: '/legal/terms'
+      path: '/legal/terms'
+      fullPath: '/legal/terms'
+      preLoaderRoute: typeof LegalTermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/opportunities/': {
@@ -518,25 +766,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/signup/poster': {
-      id: '/signup/poster'
-      path: '/signup/poster'
-      fullPath: '/signup/poster'
-      preLoaderRoute: typeof SignupPosterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/signup/student': {
-      id: '/signup/student'
-      path: '/signup/student'
-      fullPath: '/signup/student'
-      preLoaderRoute: typeof SignupStudentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
+  AuthenticatedPosterOnboardingRoute: typeof AuthenticatedPosterOnboardingRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
+  AuthenticatedPosterOnboardingRoute: AuthenticatedPosterOnboardingRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   ApplicationsRoute: ApplicationsRoute,
   CalendarRoute: CalendarRoute,
   HomeRoute: HomeRoute,
@@ -544,10 +792,20 @@ const rootRouteChildren: RootRouteChildren = {
   NavigatorRoute: NavigatorRoute,
   NotificationsRoute: NotificationsRoute,
   ProfileRoute: ProfileRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SavedRoute: SavedRoute,
   StatesRoute: StatesRoute,
+  AuthCallbackRoute: AuthCallbackRoute,
+  AuthForgotRoute: AuthForgotRoute,
+  AuthLoginRoute: AuthLoginRoute,
+  AuthPosterLoginRoute: AuthPosterLoginRoute,
+  AuthRoleRoute: AuthRoleRoute,
+  AuthSignupRoute: AuthSignupRoute,
+  AuthVerifyRoute: AuthVerifyRoute,
   CommunitiesCommunityIdRoute: CommunitiesCommunityIdRoute,
   CommunitiesNewRoute: CommunitiesNewRoute,
+  LegalPrivacyRoute: LegalPrivacyRoute,
+  LegalTermsRoute: LegalTermsRoute,
   OpportunitiesOppIdRoute: OpportunitiesOppIdRoute,
   PosterAnalyticsRoute: PosterAnalyticsRoute,
   PosterApplicationsRoute: PosterApplicationsRoute,
@@ -555,8 +813,7 @@ const rootRouteChildren: RootRouteChildren = {
   PosterNewRoute: PosterNewRoute,
   PosterOpportunitiesRoute: PosterOpportunitiesRoute,
   PosterOrganizationRoute: PosterOrganizationRoute,
-  SignupPosterRoute: SignupPosterRoute,
-  SignupStudentRoute: SignupStudentRoute,
+  AuthIndexRoute: AuthIndexRoute,
   CommunitiesIndexRoute: CommunitiesIndexRoute,
   OpportunitiesIndexRoute: OpportunitiesIndexRoute,
   PosterIndexRoute: PosterIndexRoute,

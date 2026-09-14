@@ -162,3 +162,14 @@
 @utility rail {
   scrollbar-width: thin;
 }
+
+@keyframes authFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-0.6deg); }
+  50% { transform: translate3d(0, -14px, 0) rotate(0.8deg); }
+}
+
+@keyframes authPop {
+  0% { transform: scale(0.7); opacity: 0; }
+  60% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}

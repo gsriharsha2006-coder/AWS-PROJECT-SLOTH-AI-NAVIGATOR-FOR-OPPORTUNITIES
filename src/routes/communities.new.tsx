@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { UserShell } from "@/components/UserShell";
 import { Panel, SectionTitle } from "@/components/status";
+import { supabase } from "@/integrations/supabase/client";
 import { CATEGORIES } from "@/lib/data";
 
 export const Route = createFileRoute("/communities/new")({
@@ -38,13 +39,49 @@ function Field({ label, hint, children }: { label: string; hint?: string; childr
   );
 }
 
+const DEFAULT_RULES =
+  "1. No paid promotions or referral links.\n2. Share only opportunities with a verifiable source.\n3. Credit teammates on shared submissions.";
+
 function CreateCommunity() {
   const [name, setName] = useState("");
+  const [purpose, setPurpose] = useState("");
+  const [region, setRegion] = useState("");
+  const [rules, setRules] = useState(DEFAULT_RULES);
+  const [activity, setActivity] = useState("");
   const [focus, setFocus] = useState<string[]>([]);
   const [visibility, setVisibility] = useState("Open to join");
   const [submitted, setSubmitted] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [problem, setProblem] = useState<string>();
 
   const ready = name.trim().length >= 3 && focus.length > 0;
+
+  async function submit() {
+    setProblem(undefined);
+    setSaving(true);
+    const { data: auth } = await supabase.auth.getUser();
+    if (!auth.user) {
+      setSaving(false);
+      setProblem("Log in to create a community — that's how members know who runs it.");
+      return;
+    }
+    const { error } = await supabase.from("community_submissions").insert({
+      owner_id: auth.user.id,
+      name: name.trim(),
+      purpose: purpose.trim(),
+      focus_areas: focus,
+      visibility,
+      region: region.trim(),
+      rules,
+      first_activity: activity.trim(),
+    });
+    setSaving(false);
+    if (error) {
+      setProblem("We couldn't submit this just now. Try again in a moment.");
+      return;
+    }
+    setSubmitted(true);
+  }
 
   if (submitted) {
     return (
@@ -110,6 +147,8 @@ function CreateCommunity() {
             >
               <textarea
                 className={`${inputClass} min-h-24`}
+                value={purpose}
+                onChange={(e) => setPurpose(e.target.value)}
                 placeholder="We help members form teams for hardware hackathons and review each other's submissions before deadlines."
               />
             </Field>
@@ -151,7 +190,12 @@ function CreateCommunity() {
                 </select>
               </Field>
               <Field label="Primary region" hint="Use pan-India if location doesn't matter.">
-                <input className={inputClass} placeholder="Pan-India" />
+                <input
+                  className={inputClass}
+                  value={region}
+                  onChange={(e) => setRegion(e.target.value)}
+                  placeholder="Pan-India"
+                />
               </Field>
             </div>
 
@@ -161,9 +205,8 @@ function CreateCommunity() {
             >
               <textarea
                 className={`${inputClass} min-h-24`}
-                defaultValue={
-                  "1. No paid promotions or referral links.\n2. Share only opportunities with a verifiable source.\n3. Credit teammates on shared submissions."
-                }
+                value={rules}
+                onChange={(e) => setRules(e.target.value)}
               />
             </Field>
 
@@ -171,23 +214,33 @@ function CreateCommunity() {
               label="First activity"
               hint="Optional, but communities with a scheduled first event grow far faster."
             >
-              <input className={inputClass} placeholder="Team-forming call for Smart India Hackathon" />
+              <input
+                className={inputClass}
+                value={activity}
+                onChange={(e) => setActivity(e.target.value)}
+                placeholder="Team-forming call for Smart India Hackathon"
+              />
             </Field>
           </div>
 
           <div className="mt-7 flex items-center gap-3">
             <button
               type="button"
-              disabled={!ready}
-              onClick={() => setSubmitted(true)}
+              disabled={!ready || saving}
+              onClick={submit}
               className="rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground"
             >
-              Submit for review
+              {saving ? "Submitting…" : "Submit for review"}
             </button>
             <span className="text-xs text-muted-foreground">
               {ready ? "Review usually takes two working days" : "Add a name and at least one focus area"}
             </span>
           </div>
+          {problem ? (
+            <p role="alert" className="mt-3 text-xs font-medium text-urgent">
+              ! {problem}
+            </p>
+          ) : null}
         </Panel>
 
         <div className="grid gap-4 content-start">
