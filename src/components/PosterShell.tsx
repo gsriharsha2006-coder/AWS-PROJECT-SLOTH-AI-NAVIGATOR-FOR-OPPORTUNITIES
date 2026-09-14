@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { BrandMark } from "@/components/BrandMark";
 
 const nav = [
   { to: "/poster", label: "Dashboard", icon: "◉", exact: true },
@@ -28,10 +29,7 @@ export function PosterShell({
     <div className="aurora min-h-screen">
       <div className="mx-auto flex max-w-[1440px]">
         <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col gap-1 border-r border-border/70 px-4 py-6 lg:flex">
-          <Link to="/" className="mb-6 block px-2">
-            <p className="font-display text-sm font-bold tracking-tight">Navigator for Posters</p>
-            <p className="text-xs text-muted-foreground">Bharat Innovation Foundation</p>
-          </Link>
+          <BrandMark context="Poster workspace" className="mb-6 px-2" />
           {nav.map((n) => (
             <Link
               key={n.to}

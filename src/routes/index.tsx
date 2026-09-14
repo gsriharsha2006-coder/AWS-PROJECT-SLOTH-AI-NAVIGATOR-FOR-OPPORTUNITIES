@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { opportunities } from "@/lib/data";
 import { OpportunityCard } from "@/components/OpportunityCard";
+import { BrandMark } from "@/components/BrandMark";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -53,7 +54,7 @@ function Landing() {
   return (
     <div className="aurora min-h-screen">
       <header className="mx-auto flex max-w-6xl items-center justify-between px-5 py-6">
-        <p className="font-display text-sm font-bold">Opportunity Navigator</p>
+        <BrandMark context="Opportunity Navigator · India" />
         <nav className="flex items-center gap-2 text-sm">
           <Link
             to="/home"
