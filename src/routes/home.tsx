@@ -110,15 +110,15 @@ function Home() {
             <p className="text-sm font-semibold">My deadlines</p>
             <ul className="mt-3 space-y-2 text-sm">
               <li className="flex items-center justify-between gap-2">
-                <span className="truncate">AI Innovation Challenge</span>
+                <span className="truncate">Smart India Hackathon</span>
                 <StatusChip label="Tomorrow" token="urgent" />
               </li>
               <li className="flex items-center justify-between gap-2">
-                <span className="truncate">Research Fellowship</span>
+                <span className="truncate">IISc Summer Research</span>
                 <StatusChip label="3 days" token="soon" />
               </li>
               <li className="flex items-center justify-between gap-2">
-                <span className="truncate">Embedded Internship</span>
+                <span className="truncate">IIT Bombay Internship</span>
                 <StatusChip label="6 days" token="watch" />
               </li>
             </ul>
