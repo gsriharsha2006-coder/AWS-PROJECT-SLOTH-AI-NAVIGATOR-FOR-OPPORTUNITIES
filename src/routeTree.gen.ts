@@ -21,7 +21,9 @@ import { Route as SavedRouteImport } from './routes/saved'
 import { Route as StatesRouteImport } from './routes/states'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
+import { Route as AuthPosterLoginRouteImport } from './routes/auth.poster-login'
 import { Route as AuthRoleRouteImport } from './routes/auth.role'
+import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as CommunitiesIndexRouteImport } from './routes/communities.index'
 import { Route as CommunitiesCommunityIdRouteImport } from './routes/communities.$communityId'
 import { Route as CommunitiesNewRouteImport } from './routes/communities.new'
@@ -98,9 +100,19 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/auth/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthPosterLoginRoute = AuthPosterLoginRouteImport.update({
+  id: '/auth/poster-login',
+  path: '/auth/poster-login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoleRoute = AuthRoleRouteImport.update({
   id: '/auth/role',
   path: '/auth/role',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthSignupRoute = AuthSignupRouteImport.update({
+  id: '/auth/signup',
+  path: '/auth/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CommunitiesIndexRoute = CommunitiesIndexRouteImport.update({
@@ -191,7 +203,9 @@ export interface FileRoutesByFullPath {
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
   '/auth/login': typeof AuthLoginRoute
+  '/auth/poster-login': typeof AuthPosterLoginRoute
   '/auth/role': typeof AuthRoleRoute
+  '/auth/signup': typeof AuthSignupRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/communities/new': typeof CommunitiesNewRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
@@ -221,7 +235,9 @@ export interface FileRoutesByTo {
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
   '/auth/login': typeof AuthLoginRoute
+  '/auth/poster-login': typeof AuthPosterLoginRoute
   '/auth/role': typeof AuthRoleRoute
+  '/auth/signup': typeof AuthSignupRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/communities/new': typeof CommunitiesNewRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
@@ -252,7 +268,9 @@ export interface FileRoutesById {
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
   '/auth/login': typeof AuthLoginRoute
+  '/auth/poster-login': typeof AuthPosterLoginRoute
   '/auth/role': typeof AuthRoleRoute
+  '/auth/signup': typeof AuthSignupRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/communities/new': typeof CommunitiesNewRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
@@ -284,7 +302,9 @@ export interface FileRouteTypes {
     | '/saved'
     | '/states'
     | '/auth/login'
+    | '/auth/poster-login'
     | '/auth/role'
+    | '/auth/signup'
     | '/communities/$communityId'
     | '/communities/new'
     | '/opportunities/$oppId'
@@ -314,7 +334,9 @@ export interface FileRouteTypes {
     | '/saved'
     | '/states'
     | '/auth/login'
+    | '/auth/poster-login'
     | '/auth/role'
+    | '/auth/signup'
     | '/communities/$communityId'
     | '/communities/new'
     | '/opportunities/$oppId'
@@ -344,7 +366,9 @@ export interface FileRouteTypes {
     | '/saved'
     | '/states'
     | '/auth/login'
+    | '/auth/poster-login'
     | '/auth/role'
+    | '/auth/signup'
     | '/communities/$communityId'
     | '/communities/new'
     | '/opportunities/$oppId'
@@ -375,7 +399,9 @@ export interface RootRouteChildren {
   SavedRoute: typeof SavedRoute
   StatesRoute: typeof StatesRoute
   AuthLoginRoute: typeof AuthLoginRoute
+  AuthPosterLoginRoute: typeof AuthPosterLoginRoute
   AuthRoleRoute: typeof AuthRoleRoute
+  AuthSignupRoute: typeof AuthSignupRoute
   CommunitiesCommunityIdRoute: typeof CommunitiesCommunityIdRoute
   CommunitiesNewRoute: typeof CommunitiesNewRoute
   OpportunitiesOppIdRoute: typeof OpportunitiesOppIdRoute
@@ -480,11 +506,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/poster-login': {
+      id: '/auth/poster-login'
+      path: '/auth/poster-login'
+      fullPath: '/auth/poster-login'
+      preLoaderRoute: typeof AuthPosterLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth/role': {
       id: '/auth/role'
       path: '/auth/role'
       fullPath: '/auth/role'
       preLoaderRoute: typeof AuthRoleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/signup': {
+      id: '/auth/signup'
+      path: '/auth/signup'
+      fullPath: '/auth/signup'
+      preLoaderRoute: typeof AuthSignupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/communities/': {
@@ -607,7 +647,9 @@ const rootRouteChildren: RootRouteChildren = {
   SavedRoute: SavedRoute,
   StatesRoute: StatesRoute,
   AuthLoginRoute: AuthLoginRoute,
+  AuthPosterLoginRoute: AuthPosterLoginRoute,
   AuthRoleRoute: AuthRoleRoute,
+  AuthSignupRoute: AuthSignupRoute,
   CommunitiesCommunityIdRoute: CommunitiesCommunityIdRoute,
   CommunitiesNewRoute: CommunitiesNewRoute,
   OpportunitiesOppIdRoute: OpportunitiesOppIdRoute,
