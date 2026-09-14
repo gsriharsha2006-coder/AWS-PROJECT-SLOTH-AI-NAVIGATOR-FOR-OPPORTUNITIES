@@ -26,7 +26,7 @@ export const Route = createFileRoute("/_authenticated/poster-onboarding")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: PosterOnboarding;
+  component: PosterOnboarding,
 });
 
 const ORG_TYPES = [
