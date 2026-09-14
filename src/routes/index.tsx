@@ -1,24 +1,135 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { opportunities } from "@/lib/data";
+import { OpportunityCard } from "@/components/OpportunityCard";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "AI Opportunity Navigator for India — Know which opportunities matter" },
+      {
+        name: "description",
+        content:
+          "A trusted opportunity navigation layer for students, learners, founders and young professionals in India. Personalised discovery, eligibility clarity and deadline intelligence.",
+      },
+      { property: "og:title", content: "AI Opportunity Navigator for India" },
+      {
+        property: "og:description",
+        content:
+          "Don't search through thousands of opportunities. Know which ones matter to you.",
+      },
+    ],
+  }),
+  component: Landing,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+const differentiators = [
+  {
+    title: "Personalised discovery",
+    body: "One profile decides what surfaces. Three strong matches beat 327 listings.",
+  },
+  {
+    title: "Eligibility intelligence",
+    body: "Every listing states why you match, what is missing and what still needs checking.",
+  },
+  {
+    title: "Deadline intelligence",
+    body: "Urgency shown in days and words, never colour alone. Closed listings never pose as open.",
+  },
+  {
+    title: "Trusted sources",
+    body: "Official source, last verified date and review state on every opportunity.",
+  },
+  {
+    title: "Commun-In",
+    body: "Purpose-built communities for teams, events and preparation — not a newsfeed.",
+  },
+  {
+    title: "Collaboration",
+    body: "Verified organisations reach students through leaders and opt-in, never spam.",
+  },
+];
+
+function Landing() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="aurora min-h-screen">
+      <header className="mx-auto flex max-w-6xl items-center justify-between px-5 py-6">
+        <p className="font-display text-sm font-bold">Opportunity Navigator</p>
+        <nav className="flex items-center gap-2 text-sm">
+          <Link
+            to="/poster"
+            className="rounded-xl border border-border bg-card px-4 py-2 font-medium transition-colors hover:bg-muted"
+          >
+            Post an Opportunity
+          </Link>
+          <Link
+            to="/home"
+            className="rounded-xl bg-primary px-4 py-2 font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Explore Opportunities
+          </Link>
+        </nav>
+      </header>
+
+      <section className="mx-auto max-w-6xl px-5 pt-10 text-center sm:pt-16">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+          Opportunity navigation layer · India
+        </p>
+        <h1 className="mx-auto mt-5 max-w-3xl text-balance text-4xl font-bold leading-[1.08] sm:text-6xl">
+          Don't search through thousands of opportunities. Know which ones matter to you.
+        </h1>
+        <p className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg">
+          A trusted opportunity navigation layer for students, learners, founders and young
+          professionals in India.
+        </p>
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <Link
+            to="/home"
+            className="rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Explore Opportunities
+          </Link>
+          <Link
+            to="/poster"
+            className="rounded-xl border border-border bg-card px-6 py-3 text-sm font-semibold transition-colors hover:bg-muted"
+          >
+            Post an Opportunity
+          </Link>
+        </div>
+      </section>
+
+      <section className="mx-auto mt-14 max-w-6xl px-5">
+        <div className="grid gap-4 md:grid-cols-3">
+          {opportunities.slice(0, 3).map((o) => (
+            <OpportunityCard key={o.id} opp={o} />
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto mt-16 max-w-6xl px-5">
+        <h2 className="text-2xl font-bold">Built for better decisions, not more listings</h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {differentiators.map((d) => (
+            <div key={d.title} className="glass rounded-2xl p-5">
+              <h3 className="text-base font-semibold">{d.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{d.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <footer className="mx-auto mt-20 max-w-6xl px-5 pb-14 text-sm text-muted-foreground">
+        <div className="glass flex flex-wrap items-center justify-between gap-4 rounded-2xl px-5 py-4">
+          <p>Prototype interface with sample data. Verification states are illustrative.</p>
+          <div className="flex gap-4">
+            <Link to="/home" className="hover:text-ink">
+              Student workspace
+            </Link>
+            <Link to="/poster" className="hover:text-ink">
+              Poster workspace
+            </Link>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

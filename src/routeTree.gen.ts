@@ -10,33 +10,206 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApplicationsRouteImport } from './routes/applications'
+import { Route as CalendarRouteImport } from './routes/calendar'
+import { Route as HomeRouteImport } from './routes/home'
+import { Route as NavigatorRouteImport } from './routes/navigator'
+import { Route as NotificationsRouteImport } from './routes/notifications'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as SavedRouteImport } from './routes/saved'
+import { Route as CommunitiesIndexRouteImport } from './routes/communities.index'
+import { Route as CommunitiesCommunityIdRouteImport } from './routes/communities.$communityId'
+import { Route as OpportunitiesIndexRouteImport } from './routes/opportunities.index'
+import { Route as OpportunitiesOppIdRouteImport } from './routes/opportunities.$oppId'
+import { Route as PosterIndexRouteImport } from './routes/poster.index'
+import { Route as PosterCalendarRouteImport } from './routes/poster.calendar'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApplicationsRoute = ApplicationsRouteImport.update({
+  id: '/applications',
+  path: '/applications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalendarRoute = CalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeRoute = HomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NavigatorRoute = NavigatorRouteImport.update({
+  id: '/navigator',
+  path: '/navigator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SavedRoute = SavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunitiesIndexRoute = CommunitiesIndexRouteImport.update({
+  id: '/communities/',
+  path: '/communities/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunitiesCommunityIdRoute = CommunitiesCommunityIdRouteImport.update({
+  id: '/communities/$communityId',
+  path: '/communities/$communityId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OpportunitiesIndexRoute = OpportunitiesIndexRouteImport.update({
+  id: '/opportunities/',
+  path: '/opportunities/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OpportunitiesOppIdRoute = OpportunitiesOppIdRouteImport.update({
+  id: '/opportunities/$oppId',
+  path: '/opportunities/$oppId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PosterIndexRoute = PosterIndexRouteImport.update({
+  id: '/poster/',
+  path: '/poster/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PosterCalendarRoute = PosterCalendarRouteImport.update({
+  id: '/poster/calendar',
+  path: '/poster/calendar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/applications': typeof ApplicationsRoute
+  '/calendar': typeof CalendarRoute
+  '/home': typeof HomeRoute
+  '/navigator': typeof NavigatorRoute
+  '/notifications': typeof NotificationsRoute
+  '/profile': typeof ProfileRoute
+  '/saved': typeof SavedRoute
+  '/communities/$communityId': typeof CommunitiesCommunityIdRoute
+  '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
+  '/poster/calendar': typeof PosterCalendarRoute
+  '/communities/': typeof CommunitiesIndexRoute
+  '/opportunities/': typeof OpportunitiesIndexRoute
+  '/poster/': typeof PosterIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/applications': typeof ApplicationsRoute
+  '/calendar': typeof CalendarRoute
+  '/home': typeof HomeRoute
+  '/navigator': typeof NavigatorRoute
+  '/notifications': typeof NotificationsRoute
+  '/profile': typeof ProfileRoute
+  '/saved': typeof SavedRoute
+  '/communities/$communityId': typeof CommunitiesCommunityIdRoute
+  '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
+  '/poster/calendar': typeof PosterCalendarRoute
+  '/communities': typeof CommunitiesIndexRoute
+  '/opportunities': typeof OpportunitiesIndexRoute
+  '/poster': typeof PosterIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/applications': typeof ApplicationsRoute
+  '/calendar': typeof CalendarRoute
+  '/home': typeof HomeRoute
+  '/navigator': typeof NavigatorRoute
+  '/notifications': typeof NotificationsRoute
+  '/profile': typeof ProfileRoute
+  '/saved': typeof SavedRoute
+  '/communities/$communityId': typeof CommunitiesCommunityIdRoute
+  '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
+  '/poster/calendar': typeof PosterCalendarRoute
+  '/communities/': typeof CommunitiesIndexRoute
+  '/opportunities/': typeof OpportunitiesIndexRoute
+  '/poster/': typeof PosterIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/applications'
+    | '/calendar'
+    | '/home'
+    | '/navigator'
+    | '/notifications'
+    | '/profile'
+    | '/saved'
+    | '/communities/$communityId'
+    | '/opportunities/$oppId'
+    | '/poster/calendar'
+    | '/communities/'
+    | '/opportunities/'
+    | '/poster/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/applications'
+    | '/calendar'
+    | '/home'
+    | '/navigator'
+    | '/notifications'
+    | '/profile'
+    | '/saved'
+    | '/communities/$communityId'
+    | '/opportunities/$oppId'
+    | '/poster/calendar'
+    | '/communities'
+    | '/opportunities'
+    | '/poster'
+  id:
+    | '__root__'
+    | '/'
+    | '/applications'
+    | '/calendar'
+    | '/home'
+    | '/navigator'
+    | '/notifications'
+    | '/profile'
+    | '/saved'
+    | '/communities/$communityId'
+    | '/opportunities/$oppId'
+    | '/poster/calendar'
+    | '/communities/'
+    | '/opportunities/'
+    | '/poster/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApplicationsRoute: typeof ApplicationsRoute
+  CalendarRoute: typeof CalendarRoute
+  HomeRoute: typeof HomeRoute
+  NavigatorRoute: typeof NavigatorRoute
+  NotificationsRoute: typeof NotificationsRoute
+  ProfileRoute: typeof ProfileRoute
+  SavedRoute: typeof SavedRoute
+  CommunitiesCommunityIdRoute: typeof CommunitiesCommunityIdRoute
+  OpportunitiesOppIdRoute: typeof OpportunitiesOppIdRoute
+  PosterCalendarRoute: typeof PosterCalendarRoute
+  CommunitiesIndexRoute: typeof CommunitiesIndexRoute
+  OpportunitiesIndexRoute: typeof OpportunitiesIndexRoute
+  PosterIndexRoute: typeof PosterIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +221,115 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/applications': {
+      id: '/applications'
+      path: '/applications'
+      fullPath: '/applications'
+      preLoaderRoute: typeof ApplicationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calendar': {
+      id: '/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof CalendarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home': {
+      id: '/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/navigator': {
+      id: '/navigator'
+      path: '/navigator'
+      fullPath: '/navigator'
+      preLoaderRoute: typeof NavigatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/saved': {
+      id: '/saved'
+      path: '/saved'
+      fullPath: '/saved'
+      preLoaderRoute: typeof SavedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/communities/': {
+      id: '/communities/'
+      path: '/communities'
+      fullPath: '/communities/'
+      preLoaderRoute: typeof CommunitiesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/communities/$communityId': {
+      id: '/communities/$communityId'
+      path: '/communities/$communityId'
+      fullPath: '/communities/$communityId'
+      preLoaderRoute: typeof CommunitiesCommunityIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/opportunities/': {
+      id: '/opportunities/'
+      path: '/opportunities'
+      fullPath: '/opportunities/'
+      preLoaderRoute: typeof OpportunitiesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/opportunities/$oppId': {
+      id: '/opportunities/$oppId'
+      path: '/opportunities/$oppId'
+      fullPath: '/opportunities/$oppId'
+      preLoaderRoute: typeof OpportunitiesOppIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/poster/': {
+      id: '/poster/'
+      path: '/poster'
+      fullPath: '/poster/'
+      preLoaderRoute: typeof PosterIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/poster/calendar': {
+      id: '/poster/calendar'
+      path: '/poster/calendar'
+      fullPath: '/poster/calendar'
+      preLoaderRoute: typeof PosterCalendarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApplicationsRoute: ApplicationsRoute,
+  CalendarRoute: CalendarRoute,
+  HomeRoute: HomeRoute,
+  NavigatorRoute: NavigatorRoute,
+  NotificationsRoute: NotificationsRoute,
+  ProfileRoute: ProfileRoute,
+  SavedRoute: SavedRoute,
+  CommunitiesCommunityIdRoute: CommunitiesCommunityIdRoute,
+  OpportunitiesOppIdRoute: OpportunitiesOppIdRoute,
+  PosterCalendarRoute: PosterCalendarRoute,
+  CommunitiesIndexRoute: CommunitiesIndexRoute,
+  OpportunitiesIndexRoute: OpportunitiesIndexRoute,
+  PosterIndexRoute: PosterIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
