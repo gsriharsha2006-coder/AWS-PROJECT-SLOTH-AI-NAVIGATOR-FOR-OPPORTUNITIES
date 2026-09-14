@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { BrandMark } from "@/components/BrandMark";
 
 export const Route = createFileRoute("/legal/terms")({
   head: () => ({
@@ -59,9 +60,7 @@ export function LegalPage({
   return (
     <div className="aurora min-h-screen px-4 py-10 sm:px-8">
       <div className="mx-auto max-w-2xl">
-        <Link to="/" className="font-display text-xs font-bold tracking-tight">
-          AI OPPORTUNITY NAVIGATOR
-        </Link>
+        <BrandMark compact context="Opportunity Navigator · India" />
         <h1 className="mt-6 font-display text-3xl font-bold tracking-tight">{title}</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Plain-language summary. Last updated when this product was assembled.
