@@ -74,7 +74,7 @@ function Navigator() {
   const [active, setActive] = useState("What should I apply to next?");
   const [loading, setLoading] = useState(false);
 
-  const result = answers[active];
+  const result = answers[active]!;
   const cards = result ? opportunities.filter((o) => result.ids.includes(o.id)) : [];
 
   function run(q: string) {

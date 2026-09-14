@@ -30,9 +30,9 @@ const stats = [
 ];
 
 function PosterDashboard() {
-  const today = publishingDensity[0];
+  const today = publishingDensity[0]!;
   const level = densityLevel(today.listings);
-  const best = [...publishingDensity].sort((a, b) => a.listings - b.listings)[0];
+  const best = [...publishingDensity].sort((a, b) => a.listings - b.listings)[0]!;
 
   return (
     <PosterShell
