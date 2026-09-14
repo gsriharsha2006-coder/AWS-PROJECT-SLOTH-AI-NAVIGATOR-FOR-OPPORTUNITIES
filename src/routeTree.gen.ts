@@ -22,7 +22,12 @@ import { Route as CommunitiesCommunityIdRouteImport } from './routes/communities
 import { Route as OpportunitiesIndexRouteImport } from './routes/opportunities.index'
 import { Route as OpportunitiesOppIdRouteImport } from './routes/opportunities.$oppId'
 import { Route as PosterIndexRouteImport } from './routes/poster.index'
+import { Route as PosterAnalyticsRouteImport } from './routes/poster.analytics'
+import { Route as PosterApplicationsRouteImport } from './routes/poster.applications'
 import { Route as PosterCalendarRouteImport } from './routes/poster.calendar'
+import { Route as PosterNewRouteImport } from './routes/poster.new'
+import { Route as PosterOpportunitiesRouteImport } from './routes/poster.opportunities'
+import { Route as PosterOrganizationRouteImport } from './routes/poster.organization'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -89,9 +94,34 @@ const PosterIndexRoute = PosterIndexRouteImport.update({
   path: '/poster/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PosterAnalyticsRoute = PosterAnalyticsRouteImport.update({
+  id: '/poster/analytics',
+  path: '/poster/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PosterApplicationsRoute = PosterApplicationsRouteImport.update({
+  id: '/poster/applications',
+  path: '/poster/applications',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PosterCalendarRoute = PosterCalendarRouteImport.update({
   id: '/poster/calendar',
   path: '/poster/calendar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PosterNewRoute = PosterNewRouteImport.update({
+  id: '/poster/new',
+  path: '/poster/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PosterOpportunitiesRoute = PosterOpportunitiesRouteImport.update({
+  id: '/poster/opportunities',
+  path: '/poster/opportunities',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PosterOrganizationRoute = PosterOrganizationRouteImport.update({
+  id: '/poster/organization',
+  path: '/poster/organization',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -106,7 +136,12 @@ export interface FileRoutesByFullPath {
   '/saved': typeof SavedRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
+  '/poster/analytics': typeof PosterAnalyticsRoute
+  '/poster/applications': typeof PosterApplicationsRoute
   '/poster/calendar': typeof PosterCalendarRoute
+  '/poster/new': typeof PosterNewRoute
+  '/poster/opportunities': typeof PosterOpportunitiesRoute
+  '/poster/organization': typeof PosterOrganizationRoute
   '/communities/': typeof CommunitiesIndexRoute
   '/opportunities/': typeof OpportunitiesIndexRoute
   '/poster/': typeof PosterIndexRoute
@@ -122,7 +157,12 @@ export interface FileRoutesByTo {
   '/saved': typeof SavedRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
+  '/poster/analytics': typeof PosterAnalyticsRoute
+  '/poster/applications': typeof PosterApplicationsRoute
   '/poster/calendar': typeof PosterCalendarRoute
+  '/poster/new': typeof PosterNewRoute
+  '/poster/opportunities': typeof PosterOpportunitiesRoute
+  '/poster/organization': typeof PosterOrganizationRoute
   '/communities': typeof CommunitiesIndexRoute
   '/opportunities': typeof OpportunitiesIndexRoute
   '/poster': typeof PosterIndexRoute
@@ -139,7 +179,12 @@ export interface FileRoutesById {
   '/saved': typeof SavedRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/opportunities/$oppId': typeof OpportunitiesOppIdRoute
+  '/poster/analytics': typeof PosterAnalyticsRoute
+  '/poster/applications': typeof PosterApplicationsRoute
   '/poster/calendar': typeof PosterCalendarRoute
+  '/poster/new': typeof PosterNewRoute
+  '/poster/opportunities': typeof PosterOpportunitiesRoute
+  '/poster/organization': typeof PosterOrganizationRoute
   '/communities/': typeof CommunitiesIndexRoute
   '/opportunities/': typeof OpportunitiesIndexRoute
   '/poster/': typeof PosterIndexRoute
@@ -157,7 +202,12 @@ export interface FileRouteTypes {
     | '/saved'
     | '/communities/$communityId'
     | '/opportunities/$oppId'
+    | '/poster/analytics'
+    | '/poster/applications'
     | '/poster/calendar'
+    | '/poster/new'
+    | '/poster/opportunities'
+    | '/poster/organization'
     | '/communities/'
     | '/opportunities/'
     | '/poster/'
@@ -173,7 +223,12 @@ export interface FileRouteTypes {
     | '/saved'
     | '/communities/$communityId'
     | '/opportunities/$oppId'
+    | '/poster/analytics'
+    | '/poster/applications'
     | '/poster/calendar'
+    | '/poster/new'
+    | '/poster/opportunities'
+    | '/poster/organization'
     | '/communities'
     | '/opportunities'
     | '/poster'
@@ -189,7 +244,12 @@ export interface FileRouteTypes {
     | '/saved'
     | '/communities/$communityId'
     | '/opportunities/$oppId'
+    | '/poster/analytics'
+    | '/poster/applications'
     | '/poster/calendar'
+    | '/poster/new'
+    | '/poster/opportunities'
+    | '/poster/organization'
     | '/communities/'
     | '/opportunities/'
     | '/poster/'
@@ -206,7 +266,12 @@ export interface RootRouteChildren {
   SavedRoute: typeof SavedRoute
   CommunitiesCommunityIdRoute: typeof CommunitiesCommunityIdRoute
   OpportunitiesOppIdRoute: typeof OpportunitiesOppIdRoute
+  PosterAnalyticsRoute: typeof PosterAnalyticsRoute
+  PosterApplicationsRoute: typeof PosterApplicationsRoute
   PosterCalendarRoute: typeof PosterCalendarRoute
+  PosterNewRoute: typeof PosterNewRoute
+  PosterOpportunitiesRoute: typeof PosterOpportunitiesRoute
+  PosterOrganizationRoute: typeof PosterOrganizationRoute
   CommunitiesIndexRoute: typeof CommunitiesIndexRoute
   OpportunitiesIndexRoute: typeof OpportunitiesIndexRoute
   PosterIndexRoute: typeof PosterIndexRoute
@@ -305,11 +370,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PosterIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/poster/analytics': {
+      id: '/poster/analytics'
+      path: '/poster/analytics'
+      fullPath: '/poster/analytics'
+      preLoaderRoute: typeof PosterAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/poster/applications': {
+      id: '/poster/applications'
+      path: '/poster/applications'
+      fullPath: '/poster/applications'
+      preLoaderRoute: typeof PosterApplicationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/poster/calendar': {
       id: '/poster/calendar'
       path: '/poster/calendar'
       fullPath: '/poster/calendar'
       preLoaderRoute: typeof PosterCalendarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/poster/new': {
+      id: '/poster/new'
+      path: '/poster/new'
+      fullPath: '/poster/new'
+      preLoaderRoute: typeof PosterNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/poster/opportunities': {
+      id: '/poster/opportunities'
+      path: '/poster/opportunities'
+      fullPath: '/poster/opportunities'
+      preLoaderRoute: typeof PosterOpportunitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/poster/organization': {
+      id: '/poster/organization'
+      path: '/poster/organization'
+      fullPath: '/poster/organization'
+      preLoaderRoute: typeof PosterOrganizationRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -326,7 +426,12 @@ const rootRouteChildren: RootRouteChildren = {
   SavedRoute: SavedRoute,
   CommunitiesCommunityIdRoute: CommunitiesCommunityIdRoute,
   OpportunitiesOppIdRoute: OpportunitiesOppIdRoute,
+  PosterAnalyticsRoute: PosterAnalyticsRoute,
+  PosterApplicationsRoute: PosterApplicationsRoute,
   PosterCalendarRoute: PosterCalendarRoute,
+  PosterNewRoute: PosterNewRoute,
+  PosterOpportunitiesRoute: PosterOpportunitiesRoute,
+  PosterOrganizationRoute: PosterOrganizationRoute,
   CommunitiesIndexRoute: CommunitiesIndexRoute,
   OpportunitiesIndexRoute: OpportunitiesIndexRoute,
   PosterIndexRoute: PosterIndexRoute,
