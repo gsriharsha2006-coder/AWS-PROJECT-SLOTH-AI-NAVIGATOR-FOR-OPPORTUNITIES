@@ -20,6 +20,7 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as StatesRouteImport } from './routes/states'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
+import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as AuthRoleRouteImport } from './routes/auth.role'
 import { Route as CommunitiesIndexRouteImport } from './routes/communities.index'
 import { Route as CommunitiesCommunityIdRouteImport } from './routes/communities.$communityId'
@@ -90,6 +91,11 @@ const StatesRoute = StatesRouteImport.update({
 const AuthIndexRoute = AuthIndexRouteImport.update({
   id: '/auth/',
   path: '/auth/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoleRoute = AuthRoleRouteImport.update({
@@ -184,6 +190,7 @@ export interface FileRoutesByFullPath {
   '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
+  '/auth/login': typeof AuthLoginRoute
   '/auth/role': typeof AuthRoleRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/communities/new': typeof CommunitiesNewRoute
@@ -213,6 +220,7 @@ export interface FileRoutesByTo {
   '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
+  '/auth/login': typeof AuthLoginRoute
   '/auth/role': typeof AuthRoleRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/communities/new': typeof CommunitiesNewRoute
@@ -243,6 +251,7 @@ export interface FileRoutesById {
   '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
   '/states': typeof StatesRoute
+  '/auth/login': typeof AuthLoginRoute
   '/auth/role': typeof AuthRoleRoute
   '/communities/$communityId': typeof CommunitiesCommunityIdRoute
   '/communities/new': typeof CommunitiesNewRoute
@@ -274,6 +283,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/saved'
     | '/states'
+    | '/auth/login'
     | '/auth/role'
     | '/communities/$communityId'
     | '/communities/new'
@@ -303,6 +313,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/saved'
     | '/states'
+    | '/auth/login'
     | '/auth/role'
     | '/communities/$communityId'
     | '/communities/new'
@@ -332,6 +343,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/saved'
     | '/states'
+    | '/auth/login'
     | '/auth/role'
     | '/communities/$communityId'
     | '/communities/new'
@@ -362,6 +374,7 @@ export interface RootRouteChildren {
   ProfileRoute: typeof ProfileRoute
   SavedRoute: typeof SavedRoute
   StatesRoute: typeof StatesRoute
+  AuthLoginRoute: typeof AuthLoginRoute
   AuthRoleRoute: typeof AuthRoleRoute
   CommunitiesCommunityIdRoute: typeof CommunitiesCommunityIdRoute
   CommunitiesNewRoute: typeof CommunitiesNewRoute
@@ -458,6 +471,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth/'
       preLoaderRoute: typeof AuthIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/role': {
@@ -586,6 +606,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileRoute: ProfileRoute,
   SavedRoute: SavedRoute,
   StatesRoute: StatesRoute,
+  AuthLoginRoute: AuthLoginRoute,
   AuthRoleRoute: AuthRoleRoute,
   CommunitiesCommunityIdRoute: CommunitiesCommunityIdRoute,
   CommunitiesNewRoute: CommunitiesNewRoute,
