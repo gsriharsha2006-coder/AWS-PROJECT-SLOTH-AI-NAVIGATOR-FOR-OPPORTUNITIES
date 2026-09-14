@@ -53,7 +53,8 @@ function SignupPage() {
     confirm: "",
   });
   const [agreed, setAgreed] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  type FieldKey = "fullName" | "orgName" | "email" | "phone" | "password" | "confirm" | "agreed";
+  const [errors, setErrors] = useState<Partial<Record<FieldKey, string>>>({});
   const [problem, setProblem] = useState<AuthProblem | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -61,7 +62,7 @@ function SignupPage() {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    const next: Record<string, string> = {};
+    const next: Partial<Record<FieldKey, string>> = {};
     if (!form.fullName.trim())
       next.fullName = poster ? "Enter the contact person's name." : "Enter your full name.";
     if (poster && !form.orgName.trim()) next.orgName = "Enter your organisation's name.";

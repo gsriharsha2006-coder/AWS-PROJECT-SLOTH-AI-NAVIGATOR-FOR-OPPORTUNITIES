@@ -11,9 +11,9 @@ export function TextField({
   ...props
 }: {
   label: string;
-  hint?: string;
-  error?: string;
-  success?: string;
+  hint?: string | undefined;
+  error?: string | undefined;
+  success?: string | undefined;
 } & InputHTMLAttributes<HTMLInputElement>) {
   const id = useId();
   return (
@@ -73,10 +73,10 @@ export function PasswordField({
   label: string;
   value: string;
   onChange: (v: string) => void;
-  error?: string;
-  showRules?: boolean;
-  autoComplete?: string;
-  placeholder?: string;
+  error?: string | undefined;
+  showRules?: boolean | undefined;
+  autoComplete?: string | undefined;
+  placeholder?: string | undefined;
 }) {
   const [visible, setVisible] = useState(false);
   const id = useId();
@@ -154,10 +154,10 @@ export function FormAlert({
   children,
   action,
 }: {
-  tone?: "error" | "info" | "success";
+  tone?: "error" | "info" | "success" | undefined;
   title: string;
-  children?: ReactNode;
-  action?: ReactNode;
+  children?: ReactNode | undefined;
+  action?: ReactNode | undefined;
 }) {
   const styles =
     tone === "error"
@@ -178,7 +178,7 @@ export function PrimaryButton({
   children,
   loading,
   ...props
-}: { loading?: boolean } & React.ButtonHTMLAttributes<HTMLButtonElement>) {
+}: { loading?: boolean | undefined } & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
       {...props}
@@ -202,8 +202,8 @@ export function GoogleButton({
   disabled,
 }: {
   onClick: () => void;
-  label?: string;
-  disabled?: boolean;
+  label?: string | undefined;
+  disabled?: boolean | undefined;
 }) {
   return (
     <button
