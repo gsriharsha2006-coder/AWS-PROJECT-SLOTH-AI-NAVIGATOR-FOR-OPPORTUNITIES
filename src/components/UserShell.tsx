@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { BrandMark } from "@/components/BrandMark";
+import { initials, useProfile } from "@/hooks/useProfile";
 
 const nav = [
   { to: "/home", label: "Home", icon: "◉" },
@@ -25,6 +26,7 @@ export function UserShell({
   actions?: ReactNode;
   children: ReactNode;
 }) {
+  const { profile } = useProfile();
   return (
     <div className="aurora min-h-screen">
       <div className="mx-auto flex max-w-[1440px]">
@@ -88,7 +90,7 @@ export function UserShell({
                 className="grid size-10 place-items-center rounded-xl bg-primary text-sm font-bold text-primary-foreground"
                 aria-label="Your profile"
               >
-                HV
+                {initials(profile)}
               </Link>
             </div>
           </header>

@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { UserShell } from "@/components/UserShell";
 import { Panel, SectionTitle, StatusChip } from "@/components/status";
 import { slothLedger } from "@/lib/data";
+import { displayName, initials, useProfile } from "@/hooks/useProfile";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({
@@ -19,23 +20,31 @@ export const Route = createFileRoute("/profile")({
   component: Profile,
 });
 
-const details = [
-  ["Education", "B.Tech, Electronics & Communication"],
-  ["Institution", "SRKR Engineering College, Bhimavaram"],
-  ["Year", "3rd year"],
-  ["Location", "Andhra Pradesh · open to pan-India"],
-  ["Interests", "Applied AI, embedded systems, research"],
-  ["Preferences", "Online and hybrid, stipend-bearing, research-led"],
-];
-
-const skills = ["Python", "Embedded C", "PCB design", "Signal processing", "PyTorch"];
+function joinParts(parts: (string | null | undefined)[], separator = ", ") {
+  return parts.map((p) => p?.trim()).filter((p): p is string => !!p).join(separator);
+}
 
 function Profile() {
   const total = slothLedger.reduce((s, l) => s + l.points, 0);
+  const { profile } = useProfile();
+
+  const details: [string, string][] = [
+    ["Education", joinParts([profile?.education_level, profile?.degree, profile?.discipline]) || "Not added yet"],
+    ["Institution", profile?.institution?.trim() || "Not added yet"],
+    ["Year", profile?.current_year?.trim() || "Not added yet"],
+    ["Location", joinParts([profile?.city, profile?.state, profile?.location_preference], " · ") || "Not added yet"],
+    ["Interests", (profile?.interests ?? []).join(", ") || "Not added yet"],
+    [
+      "Preferences",
+      joinParts([profile?.mode_preference, (profile?.opportunity_types ?? []).join(", ")], " · ") ||
+        "Not added yet",
+    ],
+  ];
+  const skills = profile?.skills ?? [];
 
   return (
     <UserShell
-      title="Harsha Vardhan"
+      title={displayName(profile)}
       subtitle="This profile decides which opportunities reach you and how eligibility is assessed."
     >
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
@@ -117,7 +126,7 @@ function Profile() {
         <aside className="grid content-start gap-5">
           <Panel>
             <div className="grid size-14 place-items-center rounded-2xl bg-primary font-display text-lg font-bold text-primary-foreground">
-              HV
+              {initials(profile)}
             </div>
             <p className="mt-4 text-sm font-semibold">Profile completion</p>
             <p className="mt-2 font-display text-3xl font-bold">82%</p>

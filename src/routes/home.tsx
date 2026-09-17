@@ -3,6 +3,7 @@ import { UserShell } from "@/components/UserShell";
 import { OpportunityCard } from "@/components/OpportunityCard";
 import { Panel, SectionTitle, StatusChip } from "@/components/status";
 import { applications, communities, opportunities } from "@/lib/data";
+import { firstName, useProfile } from "@/hooks/useProfile";
 
 export const Route = createFileRoute("/home")({
   head: () => ({
@@ -31,13 +32,14 @@ const quickActions = [
 ] as const;
 
 function Home() {
+  const { profile } = useProfile();
   const strong = opportunities.filter((o) => o.match >= 85);
   const closing = opportunities.filter((o) => o.daysLeft !== null && o.daysLeft <= 8);
   const upcoming = opportunities.filter((o) => o.status === "upcoming");
 
   return (
     <UserShell
-      title="Good afternoon, Harsha"
+      title={`Good afternoon, ${firstName(profile)}`}
       subtitle="3 strong matches, 2 deadlines this week, and one application waiting on you."
       actions={
         <label className="glass hidden items-center gap-2 rounded-xl px-3 py-2 text-sm md:flex">
