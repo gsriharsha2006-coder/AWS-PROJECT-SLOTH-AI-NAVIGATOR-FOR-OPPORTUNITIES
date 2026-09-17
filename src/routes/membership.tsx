@@ -219,10 +219,10 @@ function MembershipPage() {
 
               <button
                 type="button"
-                disabled={isCurrent || busy}
+                disabled={isCurrent || busy || t.id === "free"}
                 onClick={() => void handleUpgrade(t.id, t.name)}
                 className={`mt-6 rounded-xl px-4 py-2.5 text-sm font-semibold ${
-                  isCurrent
+                  isCurrent || t.id === "free"
                     ? "cursor-default border border-border bg-card text-muted-foreground"
                     : "bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-70"
                 }`}
@@ -231,9 +231,12 @@ function MembershipPage() {
                   ? isDemoPlan && t.id !== "free"
                     ? "Active (demo payment)"
                     : "You're on this plan"
-                  : busy
-                    ? "Opening checkout…"
-                    : `Upgrade to ${t.name}`}
+                  : t.id === "free"
+                    ? "Included with every account"
+                    : busy
+                      ? "Opening checkout…"
+                      : `Upgrade to ${t.name}`}
+
               </button>
               {!isCurrent && t.id !== "free" ? (
                 <p className="mt-2 text-xs text-muted-foreground">
