@@ -3,6 +3,7 @@ import { UserShell } from "@/components/UserShell";
 import { OpportunityCard } from "@/components/OpportunityCard";
 import { Panel, SectionTitle, StatusChip } from "@/components/status";
 import { applications, communities, opportunities } from "@/lib/data";
+import { firstName, useProfile } from "@/hooks/useProfile";
 
 export const Route = createFileRoute("/home")({
   head: () => ({

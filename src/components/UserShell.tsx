@@ -26,6 +26,7 @@ export function UserShell({
   actions?: ReactNode;
   children: ReactNode;
 }) {
+  const { profile } = useProfile();
   return (
     <div className="aurora min-h-screen">
       <div className="mx-auto flex max-w-[1440px]">
@@ -89,7 +90,7 @@ export function UserShell({
                 className="grid size-10 place-items-center rounded-xl bg-primary text-sm font-bold text-primary-foreground"
                 aria-label="Your profile"
               >
-                HV
+                {initials(profile)}
               </Link>
             </div>
           </header>
