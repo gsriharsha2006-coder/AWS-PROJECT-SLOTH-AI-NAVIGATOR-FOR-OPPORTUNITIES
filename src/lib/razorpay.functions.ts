@@ -17,8 +17,10 @@ type OrderResult =
       tier: string;
       tierName: string;
       isDemo: boolean;
+      prefillEmail: string;
     }
   | { ok: false; error: string };
+
 
 export const createUpgradeOrder = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
