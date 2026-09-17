@@ -30,3 +30,19 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment files (never commit real values)
+.env
+.env.local
+.env.*.local
+.dev.vars.local
+
+# Credentials
+*.pem
+*.key
+*.p12
+credentials.json
+service-account*.json
+
+# Generated
+tsconfig.tsbuildinfo
