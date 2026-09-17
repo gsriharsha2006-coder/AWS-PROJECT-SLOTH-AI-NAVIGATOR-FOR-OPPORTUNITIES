@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { BrandMark } from "@/components/BrandMark";
+import { initials, useProfile } from "@/hooks/useProfile";
 
 const nav = [
   { to: "/home", label: "Home", icon: "◉" },
