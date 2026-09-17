@@ -43,12 +43,18 @@ export function openRazorpayCheckout(options: {
   tierName: string;
   isDemo: boolean;
   prefillName?: string | undefined;
+  prefillEmail?: string | undefined;
+  prefillContact?: string | undefined;
   onSuccess: (payload: RazorpaySuccess) => void;
   onDismiss: () => void;
   onFailure: (message: string) => void;
 }) {
   return loadRazorpay()
     .then((Razorpay) => {
+      const prefill: Record<string, string> = {};
+      if (options.prefillName) prefill["name"] = options.prefillName;
+      if (options.prefillEmail) prefill["email"] = options.prefillEmail;
+      if (options.prefillContact) prefill["contact"] = options.prefillContact;
       const checkout = new Razorpay({
         key: options.keyId,
         order_id: options.orderId,
@@ -57,11 +63,12 @@ export function openRazorpayCheckout(options: {
         name: "SLOTH",
         description: `${options.tierName}${options.isDemo ? " (demo / test payment)" : ""}`,
         theme: { color: "#3126A6" },
-        prefill: options.prefillName ? { name: options.prefillName } : undefined,
+        prefill,
         notes: { tier: options.tierName },
         modal: { ondismiss: options.onDismiss },
         handler: (payload: RazorpaySuccess) => options.onSuccess(payload),
       });
+
       checkout.on("payment.failed", (payload) => {
         const reason =
           (payload as { error?: { description?: string } } | undefined)?.error?.description ??

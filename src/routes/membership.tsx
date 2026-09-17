@@ -97,6 +97,9 @@ function MembershipPage() {
         tierName: order.tierName,
         isDemo: order.isDemo,
         prefillName: profile?.full_name || undefined,
+        prefillEmail: order.prefillEmail || undefined,
+        prefillContact: profile?.phone || undefined,
+
         onDismiss: () => {
           setBusyTier(null);
           setNotice({ kind: "info", text: "Payment cancelled — nothing was charged." });

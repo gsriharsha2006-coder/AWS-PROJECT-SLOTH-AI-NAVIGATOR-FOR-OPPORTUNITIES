@@ -71,6 +71,8 @@ export const createUpgradeOrder = createServerFn({ method: "POST" })
       tier: data.tier,
       tierName: tier.name,
       isDemo: !keyId.startsWith("rzp_live_"),
+      prefillEmail: typeof context.claims.email === "string" ? context.claims.email : "",
+
     };
   });
 
