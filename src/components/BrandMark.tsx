@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import slothLogoAsset from "@/assets/sloth-master-logo.png.asset.json";
+
+// Served from the app's own public folder so the mark renders on any host.
+const SLOTH_LOGO = "/brand/sloth-master-logo.png";
 
 export function BrandMark({
   compact = false,
@@ -17,7 +19,7 @@ export function BrandMark({
       className={`inline-flex min-w-0 items-center gap-2.5 ${className}`}
     >
       <img
-        src={slothLogoAsset.url}
+        src={SLOTH_LOGO}
         alt=""
         width={compact ? 36 : 44}
         height={compact ? 36 : 44}
