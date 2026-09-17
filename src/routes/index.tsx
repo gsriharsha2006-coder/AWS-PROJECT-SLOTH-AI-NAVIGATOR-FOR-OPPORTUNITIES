@@ -1,6 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { opportunities } from "@/lib/data";
-import { OpportunityCard } from "@/components/OpportunityCard";
 import { BrandMark } from "@/components/BrandMark";
 
 export const Route = createFileRoute("/")({
