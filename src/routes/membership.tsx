@@ -162,8 +162,25 @@ function MembershipPage() {
     >
       <section aria-labelledby="tiers">
         <SectionTitle id="tiers">Membership tiers</SectionTitle>
+        {notice ? (
+          <p
+            role="status"
+            className={`mb-4 rounded-xl px-4 py-3 text-sm ${
+              notice.kind === "success"
+                ? "bg-trust/10 text-trust"
+                : notice.kind === "error"
+                  ? "bg-destructive/10 text-destructive"
+                  : "bg-muted text-muted-foreground"
+            }`}
+          >
+            {notice.text}
+          </p>
+        ) : null}
         <div className="grid gap-4 lg:grid-cols-3">
-          {membershipTiers.map((t) => (
+          {membershipTiers.map((t) => {
+            const isCurrent = activeTier === t.id;
+            const busy = busyTier === t.id;
+            return (
             <article
               key={t.id}
               className={`float-card flex flex-col rounded-2xl p-5 ${
@@ -172,8 +189,8 @@ function MembershipPage() {
             >
               <div className="flex items-start justify-between gap-2">
                 <h3 className="text-base font-semibold">{t.name}</h3>
-                {t.current ? <StatusChip label="Current plan" token="trust" /> : null}
-                {t.id === "plus" && !t.current ? (
+                {isCurrent ? <StatusChip label="Current plan" token="trust" /> : null}
+                {t.id === "plus" && !isCurrent ? (
                   <StatusChip label="Most chosen" token="soon" />
                 ) : null}
               </div>
@@ -202,17 +219,31 @@ function MembershipPage() {
 
               <button
                 type="button"
-                disabled={t.current}
+                disabled={isCurrent || busy}
+                onClick={() => void handleUpgrade(t.id, t.name)}
                 className={`mt-6 rounded-xl px-4 py-2.5 text-sm font-semibold ${
-                  t.current
+                  isCurrent
                     ? "cursor-default border border-border bg-card text-muted-foreground"
-                    : "bg-primary text-primary-foreground hover:bg-primary/90"
+                    : "bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-70"
                 }`}
               >
-                {t.current ? "You're on this plan" : `Upgrade to ${t.name}`}
+                {isCurrent
+                  ? isDemoPlan && t.id !== "free"
+                    ? "Active (demo payment)"
+                    : "You're on this plan"
+                  : busy
+                    ? "Opening checkout…"
+                    : `Upgrade to ${t.name}`}
               </button>
+              {!isCurrent && t.id !== "free" ? (
+                <p className="mt-2 text-xs text-muted-foreground">
+                  Secure Razorpay checkout · UPI, cards and netbanking
+                </p>
+              ) : null}
             </article>
-          ))}
+            );
+          })}
+
         </div>
       </section>
 
