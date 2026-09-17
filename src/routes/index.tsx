@@ -1,6 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { opportunities } from "@/lib/data";
-import { OpportunityCard } from "@/components/OpportunityCard";
 import { BrandMark } from "@/components/BrandMark";
 
 export const Route = createFileRoute("/")({
@@ -112,27 +110,6 @@ function Landing() {
         <p className="mt-4 text-xs text-muted-foreground">
           Three minutes to set up · Organisations verify before their listings go live
         </p>
-      </section>
-
-      <section className="mx-auto mt-14 max-w-6xl px-5">
-        <div className="grid gap-4 md:grid-cols-3">
-          {opportunities
-            .filter(
-              (o) =>
-                ![
-                  "Hackathons",
-                  "Research",
-                  "Scholarships",
-                  "Competitions",
-                  "Events",
-                  "Government",
-                ].includes(o.category),
-            )
-            .slice(0, 3)
-            .map((o) => (
-              <OpportunityCard key={o.id} opp={o} />
-            ))}
-        </div>
       </section>
 
       <section className="mx-auto mt-16 max-w-6xl px-5">
