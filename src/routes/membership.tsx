@@ -97,6 +97,9 @@ function MembershipPage() {
         tierName: order.tierName,
         isDemo: order.isDemo,
         prefillName: profile?.full_name || undefined,
+        prefillEmail: order.prefillEmail || undefined,
+        prefillContact: profile?.phone || undefined,
+
         onDismiss: () => {
           setBusyTier(null);
           setNotice({ kind: "info", text: "Payment cancelled — nothing was charged." });
@@ -117,19 +120,27 @@ function MembershipPage() {
             .then((result) => {
               setBusyTier(null);
               if (!result.ok) {
-                setNotice({
-                  kind: "error",
-                  text: "We received the payment but couldn't activate the plan. Contact support with your payment ID.",
-                });
+                const text =
+                  result.error === "invalid_signature"
+                    ? "We couldn't verify this payment as genuine, so nothing was activated. No money was taken — please try again."
+                    : result.error === "payment_not_successful"
+                      ? "The payment didn't go through. Nothing was charged — you can try again."
+                      : result.error === "verify_failed"
+                        ? "We couldn't reach the payment provider to confirm this payment. Please try again in a moment."
+                        : "We received the payment but couldn't activate the plan. Contact support with your payment ID.";
+                setNotice({ kind: "error", text });
                 return;
               }
               setActiveTier(tierId);
               setIsDemoPlan(order.isDemo);
               setNotice({
                 kind: "success",
-                text: `${tierName} is now active on your account${order.isDemo ? " (demo payment — no real money moved)." : "."}`,
+                text: result.duplicate
+                  ? `${tierName} was already active on your account — you haven't been charged twice.`
+                  : `${tierName} is now active on your account${order.isDemo ? " (demo payment — no real money moved)." : "."}`,
               });
             })
+
             .catch(() => {
               setBusyTier(null);
               setNotice({
