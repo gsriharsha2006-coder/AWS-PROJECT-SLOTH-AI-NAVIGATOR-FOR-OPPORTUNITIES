@@ -1,8 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { UserShell } from "@/components/UserShell";
 import { Panel, SectionTitle, StatusChip } from "@/components/status";
 import { membershipTiers, redemptions, slothBalance, slothLedger } from "@/lib/data";
+import { useProfile } from "@/hooks/useProfile";
+import { openRazorpayCheckout } from "@/lib/razorpay-checkout";
+import {
+  confirmUpgradePayment,
+  createUpgradeOrder,
+  getMembership,
+} from "@/lib/razorpay.functions";
+
 
 export const Route = createFileRoute("/membership")({
   head: () => ({
@@ -26,12 +35,119 @@ export const Route = createFileRoute("/membership")({
   component: MembershipPage,
 });
 
+type Notice = { kind: "success" | "error" | "info"; text: string } | null;
+
 function MembershipPage() {
   const [redeemed, setRedeemed] = useState<string[]>([]);
   const spent = redemptions
     .filter((r) => redeemed.includes(r.id))
     .reduce((sum, r) => sum + r.cost, 0);
   const balance = slothBalance - spent;
+
+  const { profile } = useProfile();
+  const startOrder = useServerFn(createUpgradeOrder);
+  const confirmPayment = useServerFn(confirmUpgradePayment);
+  const loadMembership = useServerFn(getMembership);
+
+  const [activeTier, setActiveTier] = useState<string>("free");
+  const [isDemoPlan, setIsDemoPlan] = useState(false);
+  const [busyTier, setBusyTier] = useState<string | null>(null);
+  const [notice, setNotice] = useState<Notice>(null);
+
+  useEffect(() => {
+    let alive = true;
+    void loadMembership()
+      .then((row) => {
+        if (!alive || !row) return;
+        if (row.status === "active") {
+          setActiveTier(row.tier);
+          setIsDemoPlan(row.is_demo);
+        }
+      })
+      .catch(() => {
+        /* signed out — stay on the free plan view */
+      });
+    return () => {
+      alive = false;
+    };
+  }, [loadMembership]);
+
+  async function handleUpgrade(tierId: string, tierName: string) {
+    setNotice(null);
+    setBusyTier(tierId);
+    try {
+      const order = await startOrder({ data: { tier: tierId } });
+      if (!order.ok) {
+        setBusyTier(null);
+        setNotice({
+          kind: "error",
+          text:
+            order.error === "not_configured"
+              ? "Payments aren't switched on yet — add your Razorpay keys and this button will open real checkout."
+              : "Razorpay couldn't start this payment. Please try again in a moment.",
+        });
+        return;
+      }
+
+      await openRazorpayCheckout({
+        keyId: order.keyId,
+        orderId: order.orderId,
+        amount: order.amount,
+        currency: order.currency,
+        tierName: order.tierName,
+        isDemo: order.isDemo,
+        prefillName: profile?.full_name || undefined,
+        onDismiss: () => {
+          setBusyTier(null);
+          setNotice({ kind: "info", text: "Payment cancelled — nothing was charged." });
+        },
+        onFailure: (message) => {
+          setBusyTier(null);
+          setNotice({ kind: "error", text: message });
+        },
+        onSuccess: (payload) => {
+          void confirmPayment({
+            data: {
+              tier: tierId,
+              razorpayOrderId: payload.razorpay_order_id,
+              razorpayPaymentId: payload.razorpay_payment_id,
+              razorpaySignature: payload.razorpay_signature,
+            },
+          })
+            .then((result) => {
+              setBusyTier(null);
+              if (!result.ok) {
+                setNotice({
+                  kind: "error",
+                  text: "We received the payment but couldn't activate the plan. Contact support with your payment ID.",
+                });
+                return;
+              }
+              setActiveTier(tierId);
+              setIsDemoPlan(order.isDemo);
+              setNotice({
+                kind: "success",
+                text: `${tierName} is now active on your account${order.isDemo ? " (demo payment — no real money moved)." : "."}`,
+              });
+            })
+            .catch(() => {
+              setBusyTier(null);
+              setNotice({
+                kind: "error",
+                text: "We couldn't confirm the payment. Please refresh and check your plan.",
+              });
+            });
+        },
+      });
+    } catch {
+      setBusyTier(null);
+      setNotice({
+        kind: "error",
+        text: "You need to be signed in to upgrade. Log in and try again.",
+      });
+    }
+  }
+
 
   return (
     <UserShell
@@ -46,8 +162,25 @@ function MembershipPage() {
     >
       <section aria-labelledby="tiers">
         <SectionTitle id="tiers">Membership tiers</SectionTitle>
+        {notice ? (
+          <p
+            role="status"
+            className={`mb-4 rounded-xl px-4 py-3 text-sm ${
+              notice.kind === "success"
+                ? "bg-trust/10 text-trust"
+                : notice.kind === "error"
+                  ? "bg-destructive/10 text-destructive"
+                  : "bg-muted text-muted-foreground"
+            }`}
+          >
+            {notice.text}
+          </p>
+        ) : null}
         <div className="grid gap-4 lg:grid-cols-3">
-          {membershipTiers.map((t) => (
+          {membershipTiers.map((t) => {
+            const isCurrent = activeTier === t.id;
+            const busy = busyTier === t.id;
+            return (
             <article
               key={t.id}
               className={`float-card flex flex-col rounded-2xl p-5 ${
@@ -56,8 +189,8 @@ function MembershipPage() {
             >
               <div className="flex items-start justify-between gap-2">
                 <h3 className="text-base font-semibold">{t.name}</h3>
-                {t.current ? <StatusChip label="Current plan" token="trust" /> : null}
-                {t.id === "plus" && !t.current ? (
+                {isCurrent ? <StatusChip label="Current plan" token="trust" /> : null}
+                {t.id === "plus" && !isCurrent ? (
                   <StatusChip label="Most chosen" token="soon" />
                 ) : null}
               </div>
@@ -86,17 +219,34 @@ function MembershipPage() {
 
               <button
                 type="button"
-                disabled={t.current}
+                disabled={isCurrent || busy || t.id === "free"}
+                onClick={() => void handleUpgrade(t.id, t.name)}
                 className={`mt-6 rounded-xl px-4 py-2.5 text-sm font-semibold ${
-                  t.current
+                  isCurrent || t.id === "free"
                     ? "cursor-default border border-border bg-card text-muted-foreground"
-                    : "bg-primary text-primary-foreground hover:bg-primary/90"
+                    : "bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-70"
                 }`}
               >
-                {t.current ? "You're on this plan" : `Upgrade to ${t.name}`}
+                {isCurrent
+                  ? isDemoPlan && t.id !== "free"
+                    ? "Active (demo payment)"
+                    : "You're on this plan"
+                  : t.id === "free"
+                    ? "Included with every account"
+                    : busy
+                      ? "Opening checkout…"
+                      : `Upgrade to ${t.name}`}
+
               </button>
+              {!isCurrent && t.id !== "free" ? (
+                <p className="mt-2 text-xs text-muted-foreground">
+                  Secure Razorpay checkout · UPI, cards and netbanking
+                </p>
+              ) : null}
             </article>
-          ))}
+            );
+          })}
+
         </div>
       </section>
 

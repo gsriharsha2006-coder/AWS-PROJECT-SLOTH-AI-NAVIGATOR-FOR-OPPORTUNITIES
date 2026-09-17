@@ -56,6 +56,48 @@ export type Database = {
         }
         Relationships: []
       }
+      memberships: {
+        Row: {
+          activated_at: string
+          amount_paise: number
+          created_at: string
+          currency: string
+          is_demo: boolean
+          razorpay_order_id: string | null
+          razorpay_payment_id: string | null
+          status: string
+          tier: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          activated_at?: string
+          amount_paise?: number
+          created_at?: string
+          currency?: string
+          is_demo?: boolean
+          razorpay_order_id?: string | null
+          razorpay_payment_id?: string | null
+          status?: string
+          tier: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          activated_at?: string
+          amount_paise?: number
+          created_at?: string
+          currency?: string
+          is_demo?: boolean
+          razorpay_order_id?: string | null
+          razorpay_payment_id?: string | null
+          status?: string
+          tier?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       organizations: {
         Row: {
           contact_name: string | null
