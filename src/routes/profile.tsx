@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { UserShell } from "@/components/UserShell";
 import { Panel, SectionTitle, StatusChip } from "@/components/status";
 import { slothLedger } from "@/lib/data";
+import { displayName, initials, useProfile } from "@/hooks/useProfile";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({
