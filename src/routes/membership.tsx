@@ -35,12 +35,119 @@ export const Route = createFileRoute("/membership")({
   component: MembershipPage,
 });
 
+type Notice = { kind: "success" | "error" | "info"; text: string } | null;
+
 function MembershipPage() {
   const [redeemed, setRedeemed] = useState<string[]>([]);
   const spent = redemptions
     .filter((r) => redeemed.includes(r.id))
     .reduce((sum, r) => sum + r.cost, 0);
   const balance = slothBalance - spent;
+
+  const { profile } = useProfile();
+  const startOrder = useServerFn(createUpgradeOrder);
+  const confirmPayment = useServerFn(confirmUpgradePayment);
+  const loadMembership = useServerFn(getMembership);
+
+  const [activeTier, setActiveTier] = useState<string>("free");
+  const [isDemoPlan, setIsDemoPlan] = useState(false);
+  const [busyTier, setBusyTier] = useState<string | null>(null);
+  const [notice, setNotice] = useState<Notice>(null);
+
+  useEffect(() => {
+    let alive = true;
+    void loadMembership()
+      .then((row) => {
+        if (!alive || !row) return;
+        if (row.status === "active") {
+          setActiveTier(row.tier);
+          setIsDemoPlan(row.is_demo);
+        }
+      })
+      .catch(() => {
+        /* signed out — stay on the free plan view */
+      });
+    return () => {
+      alive = false;
+    };
+  }, [loadMembership]);
+
+  async function handleUpgrade(tierId: string, tierName: string) {
+    setNotice(null);
+    setBusyTier(tierId);
+    try {
+      const order = await startOrder({ data: { tier: tierId } });
+      if (!order.ok) {
+        setBusyTier(null);
+        setNotice({
+          kind: "error",
+          text:
+            order.error === "not_configured"
+              ? "Payments aren't switched on yet — add your Razorpay keys and this button will open real checkout."
+              : "Razorpay couldn't start this payment. Please try again in a moment.",
+        });
+        return;
+      }
+
+      await openRazorpayCheckout({
+        keyId: order.keyId,
+        orderId: order.orderId,
+        amount: order.amount,
+        currency: order.currency,
+        tierName: order.tierName,
+        isDemo: order.isDemo,
+        prefillName: profile?.full_name || undefined,
+        onDismiss: () => {
+          setBusyTier(null);
+          setNotice({ kind: "info", text: "Payment cancelled — nothing was charged." });
+        },
+        onFailure: (message) => {
+          setBusyTier(null);
+          setNotice({ kind: "error", text: message });
+        },
+        onSuccess: (payload) => {
+          void confirmPayment({
+            data: {
+              tier: tierId,
+              razorpayOrderId: payload.razorpay_order_id,
+              razorpayPaymentId: payload.razorpay_payment_id,
+              razorpaySignature: payload.razorpay_signature,
+            },
+          })
+            .then((result) => {
+              setBusyTier(null);
+              if (!result.ok) {
+                setNotice({
+                  kind: "error",
+                  text: "We received the payment but couldn't activate the plan. Contact support with your payment ID.",
+                });
+                return;
+              }
+              setActiveTier(tierId);
+              setIsDemoPlan(order.isDemo);
+              setNotice({
+                kind: "success",
+                text: `${tierName} is now active on your account${order.isDemo ? " (demo payment — no real money moved)." : "."}`,
+              });
+            })
+            .catch(() => {
+              setBusyTier(null);
+              setNotice({
+                kind: "error",
+                text: "We couldn't confirm the payment. Please refresh and check your plan.",
+              });
+            });
+        },
+      });
+    } catch {
+      setBusyTier(null);
+      setNotice({
+        kind: "error",
+        text: "You need to be signed in to upgrade. Log in and try again.",
+      });
+    }
+  }
+
 
   return (
     <UserShell
