@@ -1,8 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { UserShell } from "@/components/UserShell";
 import { Panel, SectionTitle, StatusChip } from "@/components/status";
 import { membershipTiers, redemptions, slothBalance, slothLedger } from "@/lib/data";
+import { useProfile } from "@/hooks/useProfile";
+import { openRazorpayCheckout } from "@/lib/razorpay-checkout";
+import {
+  confirmUpgradePayment,
+  createUpgradeOrder,
+  getMembership,
+} from "@/lib/razorpay.functions";
+
 
 export const Route = createFileRoute("/membership")({
   head: () => ({
