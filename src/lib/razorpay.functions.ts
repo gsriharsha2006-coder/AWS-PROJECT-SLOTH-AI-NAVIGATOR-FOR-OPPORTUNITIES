@@ -161,7 +161,13 @@ export const confirmUpgradePayment = createServerFn({ method: "POST" })
       return { ok: false as const, error: "save_failed" };
     }
 
-    return { ok: true as const, tier: data.tier, tierName: tier.name };
+    return {
+      ok: true as const,
+      tier: data.tier,
+      tierName: tier.name,
+      duplicate: false as const,
+    };
+
   });
 
 export const getMembership = createServerFn({ method: "GET" })
