@@ -104,7 +104,43 @@ export const confirmUpgradePayment = createServerFn({ method: "POST" })
       return { ok: false as const, error: "invalid_signature" };
     }
 
+    // Duplicate payment guard — the same payment id must never activate twice.
+    const { data: existing } = await context.supabase
+      .from("memberships")
+      .select("tier, razorpay_payment_id")
+      .eq("user_id", context.userId)
+      .maybeSingle();
+    if (existing?.razorpay_payment_id === data.razorpayPaymentId) {
+      return {
+        ok: true as const,
+        tier: existing.tier,
+        tierName: TIER_PRICES[existing.tier]?.name ?? existing.tier,
+        duplicate: true as const,
+      };
+    }
+
+    // Confirm the payment really succeeded with Razorpay before activating.
+    const paymentRes = await fetch(
+      `https://api.razorpay.com/v1/payments/${encodeURIComponent(data.razorpayPaymentId)}`,
+      {
+        headers: {
+          authorization: `Basic ${Buffer.from(`${keyId}:${keySecret}`).toString("base64")}`,
+        },
+      },
+    );
+    if (!paymentRes.ok) {
+      return { ok: false as const, error: "verify_failed" };
+    }
+    const payment = (await paymentRes.json()) as { status?: string; order_id?: string };
+    if (payment.order_id !== data.razorpayOrderId) {
+      return { ok: false as const, error: "invalid_signature" };
+    }
+    if (payment.status !== "captured" && payment.status !== "authorized") {
+      return { ok: false as const, error: "payment_not_successful" };
+    }
+
     const tier = TIER_PRICES[data.tier]!;
+
     const { error } = await context.supabase.from("memberships").upsert(
       {
         user_id: context.userId,
