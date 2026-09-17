@@ -33,6 +33,7 @@ const quickActions = [
 
 function Home() {
   const { profile } = useProfile();
+  const { tier, isDemo } = useMembership();
   const strong = opportunities.filter((o) => o.match >= 85);
   const closing = opportunities.filter((o) => o.daysLeft !== null && o.daysLeft <= 8);
   const upcoming = opportunities.filter((o) => o.status === "upcoming");
@@ -42,16 +43,29 @@ function Home() {
       title={`Good afternoon, ${firstName(profile)}`}
       subtitle="3 strong matches, 2 deadlines this week, and one application waiting on you."
       actions={
-        <label className="glass hidden items-center gap-2 rounded-xl px-3 py-2 text-sm md:flex">
-          <span aria-hidden>⌕</span>
-          <input
-            className="w-56 bg-transparent outline-none placeholder:text-muted-foreground"
-            placeholder="Search opportunities, orgs, skills"
-            aria-label="Search opportunities"
-          />
-        </label>
+        <div className="flex items-center gap-2">
+          <Link
+            to="/membership"
+            className="glass rounded-xl px-3 py-2 text-right text-xs hover:bg-muted"
+          >
+            <span className="block text-muted-foreground">Your plan</span>
+            <span className="font-semibold">
+              {tierLabel(tier)}
+              {tier !== "free" && isDemo ? " · demo" : ""}
+            </span>
+          </Link>
+          <label className="glass hidden items-center gap-2 rounded-xl px-3 py-2 text-sm md:flex">
+            <span aria-hidden>⌕</span>
+            <input
+              className="w-56 bg-transparent outline-none placeholder:text-muted-foreground"
+              placeholder="Search opportunities, orgs, skills"
+              aria-label="Search opportunities"
+            />
+          </label>
+        </div>
       }
     >
+
       <div className="grid gap-4 lg:grid-cols-3">
         <Panel className="lg:col-span-2">
           <SectionTitle>What to do next</SectionTitle>
