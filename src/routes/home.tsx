@@ -32,6 +32,7 @@ const quickActions = [
 ] as const;
 
 function Home() {
+  const { profile } = useProfile();
   const strong = opportunities.filter((o) => o.match >= 85);
   const closing = opportunities.filter((o) => o.daysLeft !== null && o.daysLeft <= 8);
   const upcoming = opportunities.filter((o) => o.status === "upcoming");
