@@ -39,7 +39,7 @@ function Home() {
 
   return (
     <UserShell
-      title="Good afternoon, Harsha"
+      title={`Good afternoon, ${firstName(profile)}`}
       subtitle="3 strong matches, 2 deadlines this week, and one application waiting on you."
       actions={
         <label className="glass hidden items-center gap-2 rounded-xl px-3 py-2 text-sm md:flex">
