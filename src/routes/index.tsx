@@ -117,7 +117,17 @@ function Landing() {
       <section className="mx-auto mt-14 max-w-6xl px-5">
         <div className="grid gap-4 md:grid-cols-3">
           {opportunities
-            .filter((o) => !["Hackathons", "Research", "Scholarships"].includes(o.category))
+            .filter(
+              (o) =>
+                ![
+                  "Hackathons",
+                  "Research",
+                  "Scholarships",
+                  "Competitions",
+                  "Events",
+                  "Government",
+                ].includes(o.category),
+            )
             .slice(0, 3)
             .map((o) => (
               <OpportunityCard key={o.id} opp={o} />
