@@ -126,7 +126,7 @@ function Profile() {
         <aside className="grid content-start gap-5">
           <Panel>
             <div className="grid size-14 place-items-center rounded-2xl bg-primary font-display text-lg font-bold text-primary-foreground">
-              HV
+              {initials(profile)}
             </div>
             <p className="mt-4 text-sm font-semibold">Profile completion</p>
             <p className="mt-2 font-display text-3xl font-bold">82%</p>
